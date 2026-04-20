@@ -16,7 +16,7 @@ The workflow integrates:
 ---
 ## Requirements
 
-- R software (v 4.4.2)
+- R (v 4.4.2)
 - Conda enviroment files are provided for each script of the pipeline (.yaml)
 Note: BayesPrism R package must be installed via R
 
@@ -42,16 +42,16 @@ This scripts perform differential expression analysis for:
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
-- Raw Count Data:
+- Bulk raw count matrix for 30 samples:
 - `Counts_30samples.csv`
 
 **Outputs:**
 - Full results:
-- `Separated_C1_Aditive_Model.csv`
-- `Separated_C9_Aditive_Model.csv`
+  - `Separated_C1_Aditive_Model.csv`
+  - `Separated_C9_Aditive_Model.csv`
 - Filtered (FDR < 0.05):
-- `Separated_C1_FDR_005_Aditive_Model.csv`
-- `Separated_C9_FDR_005_Aditive_Model.csv`
+  - `Separated_C1_FDR_005_Aditive_Model.csv`
+  - `Separated_C9_FDR_005_Aditive_Model.csv`
 
 ---
 
@@ -71,12 +71,20 @@ This scripts perform differential expression analysis for:
 - N:N → select first alphabetically
 
 **Inputs:**
-- Raw Count Data:
-- `Counts_30samples.csv`
+- Bulk raw count matrix:
+  - `Counts_30samples.csv`
+- Differential expression results for C1:
+  - `Separated_C1_FDR_005_Aditive_Model.csv`
+- Differential expression results for C9:
+  - `Separated_C9_FDR_005_Aditive_Model.csv`
+- Phytozome Biomart poplar ortholog file:
+  - `PtaHAP2vsTrico.txt`
 
 **Outputs:**
-- `PtremxalbaHAP2_to_Ptricho.csv`
-- `Tricho_WT_Mutant_BULK_Counts.tsv`
+- Poplar orthologue dictionary:
+  - `PtremxalbaHAP2_to_Ptricho.csv`
+- RNA-seq input for Deconvolution:
+  - `Tricho_WT_Mutant_BULK_Counts.tsv`
 
 ---
 
@@ -89,14 +97,18 @@ This scripts perform differential expression analysis for:
 Deconvolves bulk RNA-seq into **cell-type-specific expression**
 
 **Inputs:**
-- Bulk mixture file
-- scRNA-seq reference (Seurat)
-- Marker genes
+- P.trichocarpa scRNA-seq Seurat object (DOI: 10.1186/s13059-025-03728-x):
+  - `Integrated_dataSnRNAseqSTEMFinalclustering.rds`
+- Seurat marker file (optional, if already computed for faster):
+  - `Filtered_Ptricho_FindAllMarkers_Seurat.csv`
+- RNA-Seq input for Deconvolution:
+  - `Tricho_WT_Mutant_BULK_Counts.tsv`
+
 
 **Outputs:**
-- Cell fractions (SVG)
+- Mean cell fractions for each genotype (SVG)
 - Tissue-specific matrices: Z_Matrix_Pseudocounts_Deconvoluted_Tissues/*.csv
-- 
+
 ---
 
 ### 4. ORA Enrichment (Cell-Type Specific)
