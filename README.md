@@ -195,7 +195,7 @@ This scripts perform differential expression analysis for the deconvolved cellty
 - `BayesPrism_One_vs_Rest.R`
 
 **Description:**
-This scripts identifies celltype specific gene markers for the deconvolved celltypes
+This scripts identifies highly celltype-specific genes for the deconvolved celltypes
 
 using an One vs Rest aproach:
 - Gene expression in X vs mean gene expression in the rest of celltypes
@@ -203,20 +203,16 @@ using an One vs Rest aproach:
 **Key steps:**
 - Filtering low expressed genes
 - TMM normalization
-- Additive model: ~ ZT + Genotype
+- Moodel: ~ 0 + celltype
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
 - Tissue-specific expression matrices:
   - `*.csv`
-- Poplar orthologue dictionary:
-  - `PtremxalbaHAP2_to_Ptricho.csv`
-    
+  
 **Outputs:**
-- Celltype Full results for each genotype:
-  - `*_Separated_*_Aditive_Model.csv`
-- Celltype filtered DEGs for each genotype (FDR < 0.05) :
-  - `*_Separated_*_FDR_005_Aditive_Model.csv`
+- Marker genes for all the celltypes:
+  - `Resumed_General_Markers_FDR_005.csv`
 
 ---
 
@@ -233,12 +229,16 @@ GO enrichment per tissue using **topGO**
 - BH correction
 
 **Inputs:**
+- Celltype filtered DEGs for each genotype (FDR < 0.05) :
+  - `*_Separated_*_FDR_005_Aditive_Model.csv`
+- Marker genes fo all the celltypes:
+  - `Resumed_General_Markers_FDR_005.csv`
 
 **Outputs:**
 - `.csv` and `.xlsx` enriched GO terms
 - GO + genes
-- GO + genes + annotations
-- Dotplots (top 50)
+- GO + genes + functional annotations
+- Dotplots (top 50) of most enriched processes
 
 ---
 
