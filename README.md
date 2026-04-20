@@ -11,7 +11,7 @@ The workflow integrates:
 - Bulk RNA-seq differential expression (**edgeR**)
 - Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1**)
 - Cell-type deconvolution (**BayesPrism**)
-- Functional enrichment (**topGO,GO; GSEA, KEGG**)
+- Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
 ---
 ## Requirements
@@ -38,7 +38,7 @@ This scripts perform differential expression analysis for:
 **Key steps:**
 - Filtering low expressed genes
 - TMM normalization
-- Additive model: ~ ZT + treatment
+- Additive model: ~ ZT + Genotype
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
@@ -47,15 +47,65 @@ This scripts perform differential expression analysis for:
 
 **Outputs:**
 - Full results:
-  - `Separated_C1_Aditive_Model.csv`
-  - `Separated_C9_Aditive_Model.csv`
+  - `Separated_*_Aditive_Model.csv`
 - Filtered (FDR < 0.05):
-  - `Separated_C1_FDR_005_Aditive_Model.csv`
-  - `Separated_C9_FDR_005_Aditive_Model.csv`
+  - `Separated_*_FDR_005_Aditive_Model.csv`
 
 ---
 
-### 2. Orthology Mapping + Mixture File
+### 2. ORA Enrichment of DEGs from Bulk (**topGO**)
+
+**Scripts (ORA_Bulk):**
+- `ORA_topGO_Bulk.R`
+
+**Description:**
+GO enrichment of shared DEGs from C1 vs WT and C9 vs WT for
+up and downregulated respectively
+
+**Features:**
+- Biological Process ontology
+- Algorithm: `weight01 + Fisher`
+- BH p-value correction
+
+**Inputs:**
+- Filtered DEGs from Bulk (FDR < 0.05):
+  - `Separated_C1_FDR_005_Aditive_Model.csv`
+  - `Separated_C9_FDR_005_Aditive_Model.csv`
+- Poplar–Arabidopsis GO annotation database:
+  - `2026_Poplar_Arab_GOs_TAIR.csv`
+- TAIR functional descriptions:
+  - `TAIR10_functional_descriptions.csv`
+
+**Outputs:**
+-  Enriched GO terms with contributing genes and Arabidopsis functional information
+  - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
+- Dotplots (top 20 enriched terms) for each direction
+  - `*_Top_20_ORA_topGO_Bulk.svg`
+
+---
+
+
+### 3. GSEA of Bulk (KEGG Pathways)
+
+**Scripts (GSEA_Bulk):**
+- `GSEA_KEGG_Bulk.R`
+
+**Description:**
+GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
+
+**Features:**
+- Fisher method to combine p-values and average of logFC (C1 + C9)
+- One-tailed GSEA:
+  - `pos` → upregulated
+  - `neg` → downregulated
+
+**Outputs:**
+- Enriched pathways:
+  - `*_All_Enriched_KEGG_Pathways.csv`
+- Dotplots
+- Network plots (cnetplot)
+
+### 4. Orthology Mapping + Deconvolution Input File
 
 **Scripts (Orthologues_Poplars):**
 - `1_Orthologue_Dictionary_Generation.R`
@@ -90,7 +140,7 @@ This scripts perform differential expression analysis for:
 
 ### 3. Deconvolution (BayesPrism)
 
-**Script:**
+**Scripts (Deconvolution_Analysis):**
 - `2_BayesnPrism_EN.R`
 
 **Description:**
