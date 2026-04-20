@@ -8,7 +8,7 @@ This repository contains the complete computational pipeline to analyze gene exp
 
 The workflow integrates:
 
-- Bulk RNA-seq differential expression (**edgeR**)
+- Bulk RNA-seq and deconvolved differential expression (**edgeR**)
 - Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
@@ -47,9 +47,9 @@ This scripts perform differential expression analysis for:
 - `Counts_30samples.csv`
 
 **Outputs:**
-- Full results:
+- Full results for each genotype:
   - `Separated_*_Aditive_Model.csv`
-- Filtered (FDR < 0.05):
+- Filtered DEGs for each genotype (FDR < 0.05):
   - `Separated_*_FDR_005_Aditive_Model.csv`
 
 ---
@@ -85,7 +85,6 @@ for up and downregulated respectively
   - `*_Top_20_ORA_topGO_Bulk.svg`
 
 ---
-
 
 ### 3. GSEA of Bulk (KEGG Pathways)
 
@@ -160,6 +159,67 @@ Deconvolves bulk RNA-seq into **cell-type-specific expression**
 
 ---
 
+### 6. Deconvolved Celltype Differential Expression (edgeR)
+
+**Scripts (Deconvolution_Analysis):**
+- `BayesPrism_DEGs.R`
+
+**Description:**
+This scripts perform differential expression analysis for the deconvolved celltypes:
+- C1 vs WT
+- C9 vs WT
+
+**Key steps:**
+- Filtering low expressed genes
+- TMM normalization
+- Additive model: ~ ZT + Genotype
+- Fitted to Genewise Negative Binomial Generalized Linear Models
+
+**Inputs:**
+- Tissue-specific expression matrices:
+  - `*.csv`
+- Poplar orthologue dictionary:
+  - `PtremxalbaHAP2_to_Ptricho.csv`
+    
+**Outputs:**
+- Celltype Full results for each genotype:
+  - `*_Separated_*_Aditive_Model.csv`
+- Celltype filtered DEGs for each genotype (FDR < 0.05) :
+  - `*_Separated_*_FDR_005_Aditive_Model.csv`
+
+---
+
+### 7. Deconvolved Celltype Marker Identification (edgeR)
+
+**Scripts (Deconvolution_Analysis):**
+- `BayesPrism_One_vs_Rest.R`
+
+**Description:**
+This scripts identifies celltype specific gene markers for the deconvolved celltypes
+
+using an One vs Rest aproach:
+- Gene expression in X vs mean gene expression in the rest of celltypes
+
+**Key steps:**
+- Filtering low expressed genes
+- TMM normalization
+- Additive model: ~ ZT + Genotype
+- Fitted to Genewise Negative Binomial Generalized Linear Models
+
+**Inputs:**
+- Tissue-specific expression matrices:
+  - `*.csv`
+- Poplar orthologue dictionary:
+  - `PtremxalbaHAP2_to_Ptricho.csv`
+    
+**Outputs:**
+- Celltype Full results for each genotype:
+  - `*_Separated_*_Aditive_Model.csv`
+- Celltype filtered DEGs for each genotype (FDR < 0.05) :
+  - `*_Separated_*_FDR_005_Aditive_Model.csv`
+
+---
+
 ### 8. ORA Enrichment (Cell-Type Specific)
 
 **Script:**
@@ -171,6 +231,8 @@ GO enrichment per tissue using **topGO**
 **Features:**
 - Algorithm: `weight01 + Fisher`
 - BH correction
+
+**Inputs:**
 
 **Outputs:**
 - `.csv` and `.xlsx` enriched GO terms
