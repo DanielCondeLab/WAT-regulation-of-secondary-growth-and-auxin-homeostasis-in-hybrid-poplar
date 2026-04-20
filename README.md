@@ -25,7 +25,7 @@ The workflow integrates:
 
 ## Pipeline Structure
 
-### 1. Bulk Differential Expression (edgeR)
+### 1. Bulk Differential Expression
 
 **Scripts (DEGs_Bulk):**
 - `C1_ZT_Aditive_Bulk_edgeR.R`
@@ -54,13 +54,13 @@ This scripts perform differential expression analysis for:
 
 ---
 
-### 2. ORA Enrichment of DEGs from Bulk (**topGO**)
+### 2. ORA Enrichment of DEGs from Bulk 
 
 **Scripts (ORA_Bulk):**
 - `ORA_topGO_Bulk.R`
 
 **Description:**
-GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
+ORA GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
 
 for up and downregulated respectively
 
@@ -137,7 +137,7 @@ GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
 
 ---
 
-### 5. Deconvolution of Bulk Celltypes (BayesPrism)
+### 5. Deconvolution of Bulk Celltypes 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesnPrism.R`
@@ -159,7 +159,7 @@ Deconvolves bulk RNA-seq into **cell-type-specific expression**
 
 ---
 
-### 6. Deconvolved Celltype Differential Expression (edgeR)
+### 6. Deconvolved Celltype Differential Expression 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_DEGs.R`
@@ -188,7 +188,7 @@ This scripts perform differential expression analysis for the deconvolved cellty
 
 ---
 
-### 7. Deconvolved Celltype Marker Identification (edgeR)
+### 7. Deconvolved Celltype Marker Identification 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_One_vs_Rest.R`
@@ -214,7 +214,7 @@ using an One vs Rest aproach:
 
 ---
 
-### 8. ORA Enrichment (Cell-Type Specific)
+### 8. ORA Enrichment of Cell-Type Genes
 
 **Script:**
 - `ORA_topGO_Deconvolution.R`
@@ -241,7 +241,7 @@ GO enrichment per tissue using **topGO**
 ---
 
 
-## 🔁 Workflow
+## Workflow
 
 RNA-seq<br>
 ↓<br>
@@ -261,6 +261,4 @@ DEGs analysis and cell type specific identification (edgeR; C1 / C9 + One vs Res
 Shared Up or Dwn DEGs C1 + C9 ∩ tissue DEGs<br>
 ↓<br>
 ORA (topGO)
-
-
 
