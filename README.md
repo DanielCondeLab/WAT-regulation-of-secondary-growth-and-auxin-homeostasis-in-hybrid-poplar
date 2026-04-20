@@ -248,7 +248,7 @@ RNA-seq<br>
 DEGs analysis edgeR (C1 / C9)<br>
 ↓<br>
 Functional analysis:<br>
-├── ORA (topGO; Shared Up or Dwn DEGs)<br>
+├── ORA GO (topGO; Shared Up or Dwn DEGs)<br>
 └── GSEA (KEGG)<br>
 <br>
 
@@ -258,7 +258,7 @@ Deconvolution of RNA-seq with BayesPrism<br>
 ↓<br>
 DEGs analysis and cell type specific identification (edgeR; C1 / C9 + One vs Rest)<br>
 ↓<br>
-Shared Up or Dwn DEGs C1 + C9 ∩ tissue DEGs<br>
+Shared up or dwn DEGs C1 + C9 ∩ celltype gene markers<br>
 ↓<br>
-ORA (topGO)
+ORA GO (topGO)
 
