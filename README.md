@@ -44,7 +44,7 @@ This scripts perform differential expression analysis for:
 
 **Inputs:**
 - Bulk raw count matrix for 30 samples:
-- `Counts_30samples.csv`
+  - `Counts_30samples.csv`
 
 **Outputs:**
 - Full results for each genotype:
@@ -154,8 +154,8 @@ Deconvolves bulk RNA-seq into **cell-type-specific expression**
   - `Tricho_WT_Mutant_BULK_Counts.tsv`
 
 **Outputs:**
-- Mean cell fractions for each genotype (SVG)
-- Tissue-specific expression matrices: *.csv
+- Mean cell fractions plots for each genotype (`.svg`)
+- Tissue-specific expression matrices (`.csv`)
 
 ---
 
@@ -176,8 +176,7 @@ This scripts perform differential expression analysis for the deconvolved cellty
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
-- Tissue-specific expression matrices:
-  - `*.csv`
+- Tissue-specific expression matrices (`.csv`):
 - Poplar orthologue dictionary:
   - `PtremxalbaHAP2_to_Ptricho.csv`
     
@@ -207,8 +206,7 @@ using an One vs Rest aproach:
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
-- Tissue-specific expression matrices:
-  - `*.csv`
+- Tissue-specific expression matrices (`.csv`)
   
 **Outputs:**
 - Marker genes for all the celltypes:
@@ -235,10 +233,10 @@ GO enrichment per tissue using **topGO**
   - `Resumed_General_Markers_FDR_005.csv`
 
 **Outputs:**
-- `.csv` and `.xlsx` enriched GO terms
-- GO + genes
-- GO + genes + functional annotations
-- Dotplots (top 50) of most enriched processes
+- Enriched GO terms (`.csv` and `.xlsx`)
+- Enriched GO terms + contributing genes (`.csv`)
+- Enriched GO terms + contributing genes + functional annotations (`.csv`)
+- Dotplots (top 50) of most enriched processes (`.svg`)
 
 ---
 
