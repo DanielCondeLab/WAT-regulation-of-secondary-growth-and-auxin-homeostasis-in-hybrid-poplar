@@ -18,7 +18,8 @@ The workflow integrates:
 
 - R (v 4.4.2)
 - Conda enviroment files are provided for each script of the pipeline (.yaml)
-Note: BayesPrism R package must be installed via R
+
+**Note**: BayesPrism R package must be installed via R
 
 ---
 
@@ -32,8 +33,8 @@ Note: BayesPrism R package must be installed via R
 
 **Description:**
 This scripts perform differential expression analysis for:
-- WT vs C1
-- WT vs C9
+- C1 vs WT
+- C9 vs WT
 
 **Key steps:**
 - Filtering low expressed genes
@@ -59,8 +60,9 @@ This scripts perform differential expression analysis for:
 - `ORA_topGO_Bulk.R`
 
 **Description:**
-GO enrichment of shared DEGs from C1 vs WT and C9 vs WT for
-up and downregulated respectively
+GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
+
+for up and downregulated respectively
 
 **Features:**
 - Biological Process ontology
@@ -78,7 +80,7 @@ up and downregulated respectively
 
 **Outputs:**
 -  Enriched GO terms with contributing genes and Arabidopsis functional information
-  - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
+    - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
 - Dotplots (top 20 enriched terms) for each direction
   - `*_Top_20_ORA_topGO_Bulk.svg`
 
@@ -123,10 +125,8 @@ GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
 **Inputs:**
 - Bulk raw count matrix:
   - `Counts_30samples.csv`
-- Differential expression results for C1:
-  - `Separated_C1_FDR_005_Aditive_Model.csv`
-- Differential expression results for C9:
-  - `Separated_C9_FDR_005_Aditive_Model.csv`
+- Differential expression results for C1 and C9:
+  - `Separated_*_FDR_005_Aditive_Model.csv`
 - Phytozome Biomart poplar ortholog file:
   - `PtaHAP2vsTrico.txt`
 
@@ -138,10 +138,10 @@ GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
 
 ---
 
-### 3. Deconvolution (BayesPrism)
+### 5. Deconvolution of Bulk Celltypes (BayesPrism)
 
 **Scripts (Deconvolution_Analysis):**
-- `2_BayesnPrism_EN.R`
+- `BayesnPrism.R`
 
 **Description:**
 Deconvolves bulk RNA-seq into **cell-type-specific expression**
@@ -154,17 +154,16 @@ Deconvolves bulk RNA-seq into **cell-type-specific expression**
 - RNA-Seq input for Deconvolution:
   - `Tricho_WT_Mutant_BULK_Counts.tsv`
 
-
 **Outputs:**
 - Mean cell fractions for each genotype (SVG)
-- Tissue-specific matrices: Z_Matrix_Pseudocounts_Deconvoluted_Tissues/*.csv
+- Tissue-specific expression matrices: *.csv
 
 ---
 
-### 4. ORA Enrichment (Cell-Type Specific)
+### 8. ORA Enrichment (Cell-Type Specific)
 
 **Script:**
-- `ORA_topGO_EN.R`
+- `ORA_topGO_Deconvolution.R`
 
 **Description:**
 GO enrichment per tissue using **topGO**
@@ -181,45 +180,6 @@ GO enrichment per tissue using **topGO**
 
 ---
 
-### 5. ORA Enrichment (Bulk Shared DEGs)
-
-**Script:**
-- `ORA_topGO_bulk_shared_EN.R`
-
-**Description:**
-Enrichment of DEGs shared between C1 and C9
-
-**Outputs:**
-- Dotplot (top 20 GO terms)
-- CSV with:
-- GO terms
-- genes
-- Arabidopsis annotation
-
----
-
-### 6. GSEA (KEGG Pathways)
-
-**Script:**
-- `GSEA_KEGG_one_tailed_EN.R`
-
-**Description:**
-GSEA using custom ranking: ranking = -log10(p_fisher) * sign(log2FC_avg)
-
-
-**Features:**
-- Fisher p-value (C1 + C9)
-- One-tailed:
-  - `pos` → upregulated
-  - `neg` → downregulated
-
-**Outputs:**
-- Enriched pathways:
-  - `*_All_Enriched_KEGG_Pathways.csv`
-- Dotplots
-- Network plots (cnetplot)
-
----
 
 ## 🔁 Workflow
 
