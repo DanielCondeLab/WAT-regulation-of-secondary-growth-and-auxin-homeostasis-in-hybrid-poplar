@@ -1,17 +1,24 @@
-# WAT-regulation-of-secondary-growth-and-auxin-homeostasis-in-hybrid-poplar Pipeline (Bulk RNA-seq + Deconvolution + Functional Analysis)
+# WAT-regulation-of-secondary-growth-and-auxin-homeostasis-in-hybrid-poplar Bioinformatic Pipeline 
 
 ---
 
 ## Overview
 
-This repository contains a complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba**.
+This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** of (poner paper y doi)
 
 The workflow integrates:
 
 - Bulk RNA-seq differential expression (**edgeR**)
-- Orthology mapping (**P. tremula × alba → P. trichocarpa**)
+- Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1**)
 - Cell-type deconvolution (**BayesPrism**)
-- Functional enrichment (**topGO, GSEA, KEGG**)
+- Functional enrichment (**topGO,GO; GSEA, KEGG**)
+
+---
+## Requirements
+
+- R software (v 4.4.2)
+- Conda enviroment files are provided for each script of the pipeline (.yaml)
+Note: BayesPrism R package must be installed via R
 
 ---
 
@@ -19,46 +26,53 @@ The workflow integrates:
 
 ### 1. Bulk Differential Expression (edgeR)
 
-**Scripts:**
-- `Bulk_edgeR_C1_additive_EN.R`
-- `Bulk_edgeR_C9_additive_EN.R`
+**Scripts (DEGs_Bulk):**
+- `C1_ZT_Aditive_Bulk_edgeR.R`
+- `C9_ZT_Aditive_Bulk_edgeR.R`
 
 **Description:**
-Differential expression analysis for:
+This scripts perform differential expression analysis for:
 - WT vs C1
 - WT vs C9
 
 **Key steps:**
-- Filtering (`filterByExpr`)
+- Filtering low expressed genes
 - TMM normalization
 - Additive model: ~ ZT + treatment
+- Fitted to Genewise Negative Binomial Generalized Linear Models
 
-- - Robust dispersion (`glmQLFit`)
+**Inputs:**
+- Raw Count Data:
+- `Counts_30samples.csv`
 
 **Outputs:**
 - Full results:
-- `Separado_C1_Aditivo_Model.csv`
-- `Separado_C9_Aditivo_Model.csv`
+- `Separated_C1_Aditive_Model.csv`
+- `Separated_C9_Aditive_Model.csv`
 - Filtered (FDR < 0.05):
-- `Separado_C1_FDR_005_Aditivo_Model.csv`
-- `Separado_C9_FDR_005_Aditivo_Model.csv`
+- `Separated_C1_FDR_005_Aditive_Model.csv`
+- `Separated_C9_FDR_005_Aditive_Model.csv`
 
 ---
 
 ### 2. Orthology Mapping + Mixture File
 
-**Script:**
-- `1_Mixture_File_Generation_EN.R`
+**Scripts (Orthologues_Poplars):**
+- `1_Orthologue_Dictionary_Generation.R`
 
 **Description:**
 - Maps genes: P. tremula × alba HAP2 → P. trichocarpa
 - - Generates mixture file for deconvolution
 
 **Strategy:**
-- 1:1 → keep
+- 1:1 → keep all
 - 1:N → keep all
 - N:1 → prioritize DEGs + highest WT expression
 - N:N → select first alphabetically
+
+**Inputs:**
+- Raw Count Data:
+- `Counts_30samples.csv`
 
 **Outputs:**
 - `PtremxalbaHAP2_to_Ptricho.csv`
@@ -146,23 +160,24 @@ GSEA using custom ranking: ranking = -log10(p_fisher) * sign(log2FC_avg)
 ---
 
 ## 🔁 Workflow
-Bulk RNA-seq
-↓
-edgeR (C1 / C9)
-↓
-Functional analysis:
-├── ORA (topGO; Shared DEGs)
-└── GSEA (KEGG)
 
-↓
-Orthology mapping
-↓
-BayesPrism
-↓
-edgeR (C1 / C9 + One vs Rest)
-↓
-Shared DEGs C1 + C9 ∩ tissue DEGs
-↓
+RNA-seq<br>
+↓<br>
+DEGs analysis edgeR (C1 / C9)<br>
+↓<br>
+Functional analysis:<br>
+├── ORA (topGO; Shared Up or Dwn DEGs)<br>
+└── GSEA (KEGG)<br>
+<br>
+
+Poplars orthology mapping<br>
+↓<br>
+Deconvolution of RNA-seq with BayesPrism<br>
+↓<br>
+DEGs analysis and cell type specific identification (edgeR; C1 / C9 + One vs Rest)<br>
+↓<br>
+Shared Up or Dwn DEGs C1 + C9 ∩ tissue DEGs<br>
+↓<br>
 ORA (topGO)
 
 
