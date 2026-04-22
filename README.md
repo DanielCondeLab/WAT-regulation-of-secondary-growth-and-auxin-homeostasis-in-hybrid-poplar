@@ -29,7 +29,7 @@ The workflow integrates:
   - Populus trichocarpa scRNA-seq reference (https://doi.org/10.1186/s13059-025-03728-x)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
-  - OrthoFinder configuration file and 1:1 parser script
+  - OrthoFinder configuration file and 1:1 ortholog parser script
   - R (v 4.4.2) **Note**: BayesPrism R package must be installed via R
 ---
 
