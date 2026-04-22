@@ -16,7 +16,9 @@ The workflow integrates:
 poner paper (doi) y GEO
 ---
 
-## Pipeline Scheme (Incluir esquema)
+## Pipeline Scheme 
+<img width="1920" height="1080" alt="Presentación Universidad Defensa de tesis Moderno Verde y Blanco" src="https://github.com/user-attachments/assets/e8b6495c-7a6a-4148-b34d-5c4a5ecc6372" />
+
 
 ---
 ## Software and Databases Requirements
