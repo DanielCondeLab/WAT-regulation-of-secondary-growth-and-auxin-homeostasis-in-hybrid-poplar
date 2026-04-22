@@ -73,7 +73,6 @@ This scripts perform differential expression analysis for:
 **Description:**
 
 ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT 
-
 for up and downregulated respectively
 
 **Features:**
@@ -247,6 +246,7 @@ Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 - `BayesPrism_DEGs.R`
 
 **Description:**
+
 This scripts perform differential expression analysis for the deconvolved celltypes:
 - C1 vs WT
 - C9 vs WT
@@ -280,7 +280,6 @@ Parameters are the same as in the bulk DE analysis.
 **Description:**
 
 This scripts identifies highly celltype-specific genes for the deconvolved celltypes
-
 using an One vs Rest aproach:
 - Gene expression vs mean gene expression in the rest of celltypes for each gene
 
@@ -307,7 +306,6 @@ using an One vs Rest aproach:
 **Description:**
 
 ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT per celltype 
-
 for up and downregulated respectively
 
 **Features:**
