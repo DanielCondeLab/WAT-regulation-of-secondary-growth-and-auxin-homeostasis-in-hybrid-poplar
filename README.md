@@ -28,13 +28,10 @@ poner paper y doi
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
   - OrthoFinder configuration file (config.json INCLUIR)
-  - R (v 4.4.2)
-
-     **Note**: BayesPrism R package must be installed via R
-
+  - R (v 4.4.2) **Note**: BayesPrism R package must be installed via R
 ---
 
-## Pipeline Structure
+## Pipeline Worflow
 
 ### 1. Bulk Differential Expression
 
@@ -82,8 +79,7 @@ for up and downregulated respectively
 
 **Inputs:**
 - Filtered DEGs from Bulk (FDR < 0.05):
-  - `Separated_C1_FDR_005_Aditive_Model.csv`
-  - `Separated_C9_FDR_005_Aditive_Model.csv`
+  - `Separated_*_FDR_005_Aditive_Model.csv`
 - Poplar–Arabidopsis GO annotation database:
 
   Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana 
@@ -127,17 +123,23 @@ P.alba from KEGG
 
 ### 4. GSEA of Bulk (KEGG Pathways)
 
-**Scripts (GSEA_Bulk):**
+**Scripts:**
 - `GSEA_KEGG_Bulk.R`
 
 **Description:**
-GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
+GSEA of KEGGs 
 
 **Features:**
 - Fisher method to combine p-values and average of logFC (C1 + C9)
+- Custom ranking: -log10(p_fisher) * sign(log2FC_avg)
 - One-tailed GSEA:
   - `pos` → upregulated
   - `neg` → downregulated
+
+**Inputs:**
+- Annotation info of P. tremula x alba HAP2 from Phytozome
+- DE analysis results for each genotype:
+  - `Separated_*_Aditive_Model.csv`
 
 **Outputs:**
 - Enriched pathways:
@@ -145,6 +147,34 @@ GSEA of KEGGs using custom ranking: -log10(p_fisher) * sign(log2FC_avg)
 - Dotplots
 - Network plots (cnetplot)
 
+---
+### 5. Visualization of KEGG routes with Pathview
+
+**Scripts:**
+- `GSEA_Pathview.R`
+
+**Description:**
+Visualization of enriched KEGG routes from GSEA with Pathview software
+
+**Features:**
+- Only significant genes are selected (FDR < 0.05)
+- logFC direction is represented (magnitude is not considered)
+
+**Inputs:**
+- Annotation info of P. tremula x alba HAP2 from Phytozome
+- DE analysis results for each genotype:
+  - `Separated_*_Aditive_Model.csv`
+- Significant genes of DE analysis for each genotype:
+  - `Separated_*_FDR_005_Aditive_Model.csv`
+- 1:1 Poplar Orthologues:
+  - `one2one_pairs.tsv`
+
+**Outputs:**
+- Enriched map of interest (e.g. palz00400):
+  - `Map_00400.csv`
+  - `palz00400.png`
+
+---
 ### 4. Orthology Mapping + Deconvolution Input File
 
 **Scripts (Orthologues_Poplars):**
