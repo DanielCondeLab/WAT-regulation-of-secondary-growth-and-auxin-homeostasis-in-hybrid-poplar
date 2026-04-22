@@ -83,9 +83,7 @@ for up and downregulated respectively
 **Inputs:**
 - Filtered DEGs from Bulk (FDR < 0.05):
   - `Separated_*_FDR_005_Aditive_Model.csv`
-- Poplar–Arabidopsis GO annotation database:
-
-  Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana 
+- Poplar–Arabidopsis GO annotation database (Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana) 
 - TAIR functional descriptions:
   - `TAIR10_functional_descriptions.csv`
 
