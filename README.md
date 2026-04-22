@@ -21,7 +21,7 @@ poner paper y doi
 ---
 ## Software and Databases Requirements
 - Databases
-  - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/  PtremulaxPopulusalbaHAP2_v5_1)
+  - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
   - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
   - Biomart Phytozome Tool (https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
   - Arabidopsis thaliana TAIR10 from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
