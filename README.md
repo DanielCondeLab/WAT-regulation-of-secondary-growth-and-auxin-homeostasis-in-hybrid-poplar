@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** of
+This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** 
 
 The workflow integrates:
 
