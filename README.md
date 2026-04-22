@@ -23,8 +23,10 @@ poner paper y doi
 - Databases
   - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/  PtremulaxPopulusalbaHAP2_v5_1)
   - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
+  - Biomart Phytozome Tool (https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
   - Arabidopsis thaliana TAIR10 from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
   - Arabidopsis thaliana TAIR10 functional info (https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
+  - Populus trichocarpa scRNA-seq reference (https://doi.org/10.1186/s13059-025-03728-x)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
   - OrthoFinder configuration file (config.json INCLUIR)
@@ -40,6 +42,7 @@ poner paper y doi
 - `C9_ZT_Aditive_Bulk_edgeR.R`
 
 **Description:**
+
 This scripts perform differential expression analysis for:
 - C1 vs WT
 - C9 vs WT
@@ -68,7 +71,8 @@ This scripts perform differential expression analysis for:
 - `ORA_topGO_Bulk.R`
 
 **Description:**
-ORA GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
+
+ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT 
 
 for up and downregulated respectively
 
@@ -96,6 +100,7 @@ for up and downregulated respectively
 ### 3. Orthologue Mapping Between P.tremula x alba HAP2 - P.alba (KEGG)
 
 **Description:**
+
 This scripts identifies the orthologues between P.tremula x alba HAP2 from Phytozome and
 P.alba from KEGG
 
@@ -127,7 +132,8 @@ P.alba from KEGG
 - `GSEA_KEGG_Bulk.R`
 
 **Description:**
-GSEA of KEGGs 
+
+GSEA of DE results from bulk using KEGG database 
 
 **Features:**
 - Fisher method to combine p-values and average of logFC (C1 + C9)
@@ -154,6 +160,7 @@ GSEA of KEGGs
 - `GSEA_Pathview.R`
 
 **Description:**
+
 Visualization of enriched KEGG routes from GSEA with Pathview software
 
 **Features:**
@@ -175,14 +182,14 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
   - `palz00400.png`
 
 ---
-### 4. Orthology Mapping + Deconvolution Input File
+### 6. Orthology Mapping + Deconvolution Input File
 
-**Scripts (Orthologues_Poplars):**
-- `1_Orthologue_Dictionary_Generation.R`
+**Scripts:**
+- `Orthologue_Dictionary_Generation.R`
 
 **Description:**
-- Maps genes: P. tremula × alba HAP2 → P. trichocarpa
-- - Generates mixture file for deconvolution
+
+Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates input file for deconvolution
 
 **Strategy:**
 - 1:1 → keep all
@@ -193,26 +200,26 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 **Inputs:**
 - Bulk raw count matrix:
   - `Counts_30samples.csv`
-- Differential expression results for C1 and C9:
+- Significant genes of DE analysis for each genotype:
   - `Separated_*_FDR_005_Aditive_Model.csv`
-- Phytozome Biomart poplar ortholog file:
-  - `PtaHAP2vsTrico.txt`
+- Phytozome Biomart P.tremula x alba - P.trichocarpa ortholog file:
 
 **Outputs:**
 - Poplar orthologue dictionary:
   - `PtremxalbaHAP2_to_Ptricho.csv`
-- RNA-seq input for Deconvolution:
+- Input matrix for deconvolution:
   - `Tricho_WT_Mutant_BULK_Counts.tsv`
 
 ---
 
-### 5. Deconvolution of Bulk Celltypes 
+### 7. Deconvolution of Bulk Celltypes with BayesPrism 
 
-**Scripts (Deconvolution_Analysis):**
+**Scripts:**
 - `BayesnPrism.R`
 
 **Description:**
-Deconvolves bulk RNA-seq into **cell-type-specific expression**
+
+Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 
 **Inputs:**
 - P.trichocarpa scRNA-seq Seurat object (DOI: 10.1186/s13059-025-03728-x):
