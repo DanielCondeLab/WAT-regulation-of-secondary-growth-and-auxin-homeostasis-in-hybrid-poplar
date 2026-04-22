@@ -35,7 +35,7 @@ The workflow integrates:
 
 ## Pipeline Worflow
 
-### 1. Bulk Differential Expression (DE)
+### 1. Bulk Differential Expression (DE) Analysis
 
 **Scripts:**
 - `C1_ZT_Aditive_Bulk_edgeR.R`
@@ -123,7 +123,7 @@ P.alba from KEGG
 
 ---
 
-### 4. GSEA of Bulk (KEGG Pathways)
+### 4. GSEA of Bulk DE Analysis (KEGG Pathways)
 
 **Scripts:**
 - `GSEA_KEGG_Bulk.R`
@@ -151,7 +151,7 @@ GSEA of DE results from bulk using KEGG database
 - Network plots (cnetplot)
 
 ---
-### 5. Visualization of KEGG routes with Pathview
+### 5. Visualization of KEGG Pathways from GSEA with Pathview
 
 **Scripts:**
 - `GSEA_Pathview.R`
@@ -179,7 +179,7 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
   - `palz00400.png`
 
 ---
-### 6. Orthology Mapping + Deconvolution Input File
+### 6. Poplars Orthology Mapping + Deconvolution Input File
 
 **Scripts:**
 - `Orthologue_Dictionary_Generation.R`
@@ -238,7 +238,7 @@ Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 
 ---
 
-### 8. Deconvolved Celltype Differential Expression Analysis 
+### 8. Deconvolved Celltype DE Analysis 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_DEGs.R`
@@ -296,7 +296,7 @@ using an One vs Rest aproach:
 
 ---
 
-### 10. ORA Enrichment of Cell-Type Genes
+### 10. ORA Enrichment of Celltype DEGs
 
 **Script:**
 - `ORA_topGO_Deconvolution.R`
