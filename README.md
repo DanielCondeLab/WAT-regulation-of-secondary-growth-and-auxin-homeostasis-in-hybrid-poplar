@@ -1,4 +1,4 @@
-# WAT Regulation of Secondary Growth and auxin homeostasis in hybrid poplar 
+# WAT Regulation of Secondary Growth and Auxin Homeostasis in Hybrid Poplar 
 ---
 poner paper (doi) y GEO
 ## Overview
