@@ -13,7 +13,7 @@ The workflow integrates:
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
-poner paper y doi
+poner paper (doi) y GEO
 ---
 
 ## Pipeline Scheme (Incluir esquema)
