@@ -8,8 +8,8 @@ This repository contains the complete computational pipeline to analyze gene exp
 
 The workflow integrates:
 
-- Bulk RNA-seq and deconvolved differential expression (**edgeR**)
-- Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1**)
+- Bulk RNA-seq and deconvolved celltype differential expression (**edgeR**)
+- Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1** | **P. tremula × alba HAP2 v5.1 → P. Alba (KEGG)**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
@@ -23,7 +23,7 @@ poner paper y doi
 - Databases
   - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/  PtremulaxPopulusalbaHAP2_v5_1)
   - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
-  - Arabidopsis thaliana from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
+  - Arabidopsis thaliana TAIR10 from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
   - Arabidopsis thaliana TAIR10 functional info (https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
@@ -104,10 +104,10 @@ This scripts identifies the orthologues between P.tremula x alba HAP2 from Phyto
 P.alba from KEGG
 
 **Scripts:**
-Activate orthofinder.yaml and copy config.json parameters
-Create a folder (e.g. Poplar_Proteomes) and add P.tremula x alba and P.alba proteomes
-orthofinder -M msa -f Poplar_Proteomes/ 
-Extract 1:1 pairs using Poplars_parser.py
+- Activate orthofinder.yaml in the Terminal and copy config.json parameters
+- Create and move to a folder (e.g. Poplar_Proteomes) and add P.tremula x alba and P.alba proteomes
+- Execute: `orthofinder -M msa -f Poplar_Proteomes/`
+- Enter results folder. Extract 1:1 pairs using `Poplars_parser.py`
 
 **Key steps:**
 - DIAMOND for protein homolgy searches
@@ -121,40 +121,8 @@ Extract 1:1 pairs using Poplars_parser.py
 
 **Outputs:**
 - 1:1 Poplar Orthologues:
-  - `one2one_pairs`
+  - `one2one_pairs.tsv`
 
----
-
-### 2. ORA Enrichment of DEGs from Bulk 
-
-**Scripts (ORA_Bulk):**
-- `ORA_topGO_Bulk.R`
-
-**Description:**
-ORA GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
-
-for up and downregulated respectively
-
-**Features:**
-- Biological Process ontology
-- Algorithm: `weight01 + Fisher`
-- BH p-value correction
-
-**Inputs:**
-- Filtered DEGs from Bulk (FDR < 0.05):
-  - `Separated_C1_FDR_005_Aditive_Model.csv`
-  - `Separated_C9_FDR_005_Aditive_Model.csv`
-- Poplar–Arabidopsis GO annotation database:
-
-  Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana 
-- TAIR functional descriptions:
-  - `TAIR10_functional_descriptions.csv`
-
-**Outputs:**
--  Enriched GO terms with contributing genes and Arabidopsis functional information
-    - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
-- Dotplots (top 20 enriched terms) for each direction
-  - `*_Top_20_ORA_topGO_Bulk.svg`
 ---
 
 ### 4. GSEA of Bulk (KEGG Pathways)
