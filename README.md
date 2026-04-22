@@ -29,7 +29,7 @@ poner paper y doi
   - Populus trichocarpa scRNA-seq reference (https://doi.org/10.1186/s13059-025-03728-x)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
-  - OrthoFinder configuration file (config.json INCLUIR)
+  - OrthoFinder configuration file and 1:1 parser script
   - R (v 4.4.2) **Note**: BayesPrism R package must be installed via R
 ---
 
@@ -272,21 +272,22 @@ Parameters are the same as in the bulk DE analysis.
 
 ---
 
-### 8. Deconvolved Celltype Marker Identification 
+### 9. Deconvolved Celltype Marker Identification 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_One_vs_Rest.R`
 
 **Description:**
+
 This scripts identifies highly celltype-specific genes for the deconvolved celltypes
 
 using an One vs Rest aproach:
-- Gene expression in X vs mean gene expression in the rest of celltypes
+- Gene expression vs mean gene expression in the rest of celltypes for each gene
 
-**Key steps:**
+**Features:**
 - Filtering low expressed genes
 - TMM normalization
-- Moodel: ~ 0 + celltype
+- Model: ~ 0 + celltype
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
@@ -298,17 +299,21 @@ using an One vs Rest aproach:
 
 ---
 
-### 9. ORA Enrichment of Cell-Type Genes
+### 10. ORA Enrichment of Cell-Type Genes
 
 **Script:**
 - `ORA_topGO_Deconvolution.R`
 
 **Description:**
-GO enrichment per tissue using **topGO**
+
+ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT per celltype 
+
+for up and downregulated respectively
 
 **Features:**
+- Biological Process ontology
 - Algorithm: `weight01 + Fisher`
-- BH correction
+- BH p-value correction
 
 **Inputs:**
 - Celltype filtered DEGs for each genotype (FDR < 0.05) :
@@ -321,28 +326,3 @@ GO enrichment per tissue using **topGO**
 - Enriched GO terms + contributing genes (`.csv`)
 - Enriched GO terms + contributing genes + functional annotations (`.csv`)
 - Dotplots (top 50) of most enriched processes (`.svg`)
-
----
-
-
-## Workflow
-
-RNA-seq<br>
-↓<br>
-DEGs analysis edgeR (C1 / C9)<br>
-↓<br>
-Functional analysis:<br>
-├── ORA GO (topGO; Shared Up or Dwn DEGs)<br>
-└── GSEA (KEGG)<br>
-<br>
-
-Poplars orthology mapping<br>
-↓<br>
-Deconvolution of RNA-seq with BayesPrism<br>
-↓<br>
-DEGs analysis and cell type specific identification (edgeR; C1 / C9 + One vs Rest)<br>
-↓<br>
-Shared up or dwn DEGs C1 + C9 ∩ celltype gene markers<br>
-↓<br>
-ORA GO (topGO)
-
