@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** of (poner paper y doi)
+This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** of
 
 The workflow integrates:
 
@@ -13,13 +13,24 @@ The workflow integrates:
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
+poner paper y doi
 ---
-## Requirements
 
-- R (v 4.4.2)
-- Conda enviroment files are provided for each script of the pipeline (.yaml)
+## Pipeline Scheme (Incluir esquema)
 
-**Note**: BayesPrism R package must be installed via R
+---
+## Software and Databases Requirements
+- Databases
+  - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/  PtremulaxPopulusalbaHAP2_v5_1)
+  - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
+  - Arabidopsis thaliana from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
+  - Arabidopsis thaliana TAIR10 functional info (https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
+- Software
+  - Conda enviroment files are provided for each script of the pipeline (.yaml)
+  - OrthoFinder configuration file (config.json INCLUIR)
+  - R (v 4.4.2)
+
+     **Note**: BayesPrism R package must be installed via R
 
 ---
 
@@ -27,7 +38,7 @@ The workflow integrates:
 
 ### 1. Bulk Differential Expression
 
-**Scripts (DEGs_Bulk):**
+**Scripts:**
 - `C1_ZT_Aditive_Bulk_edgeR.R`
 - `C9_ZT_Aditive_Bulk_edgeR.R`
 
@@ -56,6 +67,66 @@ This scripts perform differential expression analysis for:
 
 ### 2. ORA Enrichment of DEGs from Bulk 
 
+**Scripts:**
+- `ORA_topGO_Bulk.R`
+
+**Description:**
+ORA GO enrichment of shared DEGs from C1 vs WT and C9 vs WT 
+
+for up and downregulated respectively
+
+**Features:**
+- Biological Process ontology
+- Algorithm: `weight01 + Fisher`
+- BH p-value correction
+
+**Inputs:**
+- Filtered DEGs from Bulk (FDR < 0.05):
+  - `Separated_C1_FDR_005_Aditive_Model.csv`
+  - `Separated_C9_FDR_005_Aditive_Model.csv`
+- Poplar–Arabidopsis GO annotation database:
+
+  Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana 
+- TAIR functional descriptions:
+  - `TAIR10_functional_descriptions.csv`
+
+**Outputs:**
+-  Enriched GO terms with contributing genes and Arabidopsis functional information
+    - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
+- Dotplots (top 20 enriched terms) for each direction
+  - `*_Top_20_ORA_topGO_Bulk.svg`
+
+---
+### 3. Orthologue Mapping Between P.tremula x alba HAP2 - P.alba (KEGG)
+
+**Description:**
+This scripts identifies the orthologues between P.tremula x alba HAP2 from Phytozome and
+P.alba from KEGG
+
+**Scripts:**
+Activate orthofinder.yaml and copy config.json parameters
+Create a folder (e.g. Poplar_Proteomes) and add P.tremula x alba and P.alba proteomes
+orthofinder -M msa -f Poplar_Proteomes/ 
+Extract 1:1 pairs using Poplars_parser.py
+
+**Key steps:**
+- DIAMOND for protein homolgy searches
+- FAMSA for multiple sequence alignment
+- IQ-TREE 3 for phylogenetic inference 
+  - ModelFinder automatic model selection
+  - Ultrafast bootstrap with 1000 replicates  
+
+**Inputs:**
+- Poplars proteomes (principal transcripts)
+
+**Outputs:**
+- 1:1 Poplar Orthologues:
+  - `one2one_pairs`
+
+---
+
+### 2. ORA Enrichment of DEGs from Bulk 
+
 **Scripts (ORA_Bulk):**
 - `ORA_topGO_Bulk.R`
 
@@ -74,7 +145,8 @@ for up and downregulated respectively
   - `Separated_C1_FDR_005_Aditive_Model.csv`
   - `Separated_C9_FDR_005_Aditive_Model.csv`
 - Poplar–Arabidopsis GO annotation database:
-  - `2026_Poplar_Arab_GOs_TAIR.csv`
+
+  Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana 
 - TAIR functional descriptions:
   - `TAIR10_functional_descriptions.csv`
 
@@ -83,10 +155,9 @@ for up and downregulated respectively
     - `*_All_Significant_GO_Enrichment_With_Arab_Functional_Info.csv`
 - Dotplots (top 20 enriched terms) for each direction
   - `*_Top_20_ORA_topGO_Bulk.svg`
-
 ---
 
-### 3. GSEA of Bulk (KEGG Pathways)
+### 4. GSEA of Bulk (KEGG Pathways)
 
 **Scripts (GSEA_Bulk):**
 - `GSEA_KEGG_Bulk.R`
