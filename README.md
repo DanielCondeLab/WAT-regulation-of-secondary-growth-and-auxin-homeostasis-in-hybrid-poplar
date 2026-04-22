@@ -1,7 +1,6 @@
-# WAT-regulation-of-secondary-growth-and-auxin-homeostasis-in-hybrid-poplar Bioinformatic Pipeline 
-
+# WAT Regulation of Secondary Growth and auxin homeostasis in hybrid poplar 
 ---
-
+poner paper (doi) y GEO
 ## Overview
 
 This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** 
@@ -9,20 +8,19 @@ This repository contains the complete computational pipeline to analyze gene exp
 The workflow integrates:
 
 - Bulk RNA-seq and deconvolved celltype differential expression (**edgeR**)
-- Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1** | **P. tremula × alba HAP2 v5.1 → P. Alba (KEGG)**)
+- Orthology mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1** | **P. tremula × alba HAP2 v5.1 → P. Alba (KEGG); OrthoFinder**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
-poner paper (doi) y GEO
 ---
 
 ## Pipeline Scheme 
-<img width="1920" height="1080" alt="Presentación Universidad Defensa de tesis Moderno Verde y Blanco" src="https://github.com/user-attachments/assets/e8b6495c-7a6a-4148-b34d-5c4a5ecc6372" />
-
+<img width="1920" height="1080" alt="Presentación Universidad Defensa de tesis Moderno Verde y Blanco(1)" src="https://github.com/user-attachments/assets/ac96860c-3e28-4df3-97d3-6f41eb58f7e4" />
 
 ---
-## Software and Databases Requirements
-- Databases
+## Software and Required Data
+- Data
+  - WATs raw count data (GSE328658)  
   - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
   - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
   - Biomart Phytozome Tool (https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
@@ -324,3 +322,5 @@ for up and downregulated respectively
 - Enriched GO terms + contributing genes (`.csv`)
 - Enriched GO terms + contributing genes + functional annotations (`.csv`)
 - Dotplots (top 50) of most enriched processes (`.svg`)
+
+---
