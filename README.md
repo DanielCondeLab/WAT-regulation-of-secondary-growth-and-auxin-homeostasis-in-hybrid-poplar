@@ -35,7 +35,7 @@ poner paper y doi
 
 ## Pipeline Worflow
 
-### 1. Bulk Differential Expression
+### 1. Bulk Differential Expression (DE)
 
 **Scripts:**
 - `C1_ZT_Aditive_Bulk_edgeR.R`
@@ -47,7 +47,7 @@ This scripts perform differential expression analysis for:
 - C1 vs WT
 - C9 vs WT
 
-**Key steps:**
+**Features:**
 - Filtering low expressed genes
 - TMM normalization
 - Additive model: ~ ZT + Genotype
@@ -110,7 +110,7 @@ P.alba from KEGG
 - Execute: `orthofinder -M msa -f Poplar_Proteomes/`
 - Enter results folder. Extract 1:1 pairs using `Poplars_parser.py`
 
-**Key steps:**
+**Features:**
 - DIAMOND for protein homolgy searches
 - FAMSA for multiple sequence alignment
 - IQ-TREE 3 for phylogenetic inference 
@@ -191,7 +191,7 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 
 Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates input file for deconvolution
 
-**Strategy:**
+**Features:**
 - 1:1 → keep all
 - 1:N → keep all
 - N:1 → prioritize DEGs + highest WT expression
@@ -221,10 +221,16 @@ Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates inpu
 
 Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 
+**Features:**
+- Although BayesPrism’s marker calculation is faster, it identifies far fewer genes than Seurat. For this reason, we recommend using Seurat’s FindAllMarkers.
+- Sieve Elements (SE) celltype from P.trichocarpa scRNA-seq reference generates aberrant data.
+  It is integrated into the Unknown (???) celltype. 
+
+
 **Inputs:**
 - P.trichocarpa scRNA-seq Seurat object (DOI: 10.1186/s13059-025-03728-x):
   - `Integrated_dataSnRNAseqSTEMFinalclustering.rds`
-- Seurat marker file (optional, if already computed for faster):
+- Seurat marker file (optional, if already computed for faster performance):
   - `Filtered_Ptricho_FindAllMarkers_Seurat.csv`
 - RNA-Seq input for Deconvolution:
   - `Tricho_WT_Mutant_BULK_Counts.tsv`
@@ -235,7 +241,7 @@ Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 
 ---
 
-### 6. Deconvolved Celltype Differential Expression 
+### 8. Deconvolved Celltype Differential Expression Analysis 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_DEGs.R`
@@ -245,14 +251,16 @@ This scripts perform differential expression analysis for the deconvolved cellty
 - C1 vs WT
 - C9 vs WT
 
-**Key steps:**
+Parameters are the same as in the bulk DE analysis.
+
+**Features:**
 - Filtering low expressed genes
 - TMM normalization
 - Additive model: ~ ZT + Genotype
 - Fitted to Genewise Negative Binomial Generalized Linear Models
 
 **Inputs:**
-- Tissue-specific expression matrices (`.csv`):
+- Celltype-specific expression matrices from BayesPrism(`.csv`):
 - Poplar orthologue dictionary:
   - `PtremxalbaHAP2_to_Ptricho.csv`
     
@@ -264,7 +272,7 @@ This scripts perform differential expression analysis for the deconvolved cellty
 
 ---
 
-### 7. Deconvolved Celltype Marker Identification 
+### 8. Deconvolved Celltype Marker Identification 
 
 **Scripts (Deconvolution_Analysis):**
 - `BayesPrism_One_vs_Rest.R`
@@ -290,7 +298,7 @@ using an One vs Rest aproach:
 
 ---
 
-### 8. ORA Enrichment of Cell-Type Genes
+### 9. ORA Enrichment of Cell-Type Genes
 
 **Script:**
 - `ORA_topGO_Deconvolution.R`
