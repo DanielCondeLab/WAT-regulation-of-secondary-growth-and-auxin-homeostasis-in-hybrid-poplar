@@ -20,7 +20,7 @@ The workflow integrates:
 ---
 ## Software and Required Data
 - Data
-  - WATs raw count data [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
+  - WATs GEO raw count [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
   - [Populus tremula x alba HAP2 from Phytozome](https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
   - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
   - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
