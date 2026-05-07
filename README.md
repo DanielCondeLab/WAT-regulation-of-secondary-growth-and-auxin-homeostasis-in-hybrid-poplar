@@ -1,6 +1,6 @@
 # WAT Regulation of Secondary Growth and Auxin Homeostasis in Hybrid Poplar 
 ---
-poner paper (doi) y GEO
+poner paper (doi) 
 ## Overview
 
 This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** 
@@ -20,13 +20,13 @@ The workflow integrates:
 ---
 ## Software and Required Data
 - Data
-  - WATs raw count data (GSE328658)  
-  - Populus tremula x alba HAP2 from Phytozome (https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
-  - Populus alba from KEGG (https://www.kegg.jp/kegg-bin/show_organism?org=palz)
-  - Biomart Phytozome Tool (https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
-  - Arabidopsis thaliana TAIR10 from Phytozome (https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
-  - Arabidopsis thaliana TAIR10 functional info (https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
-  - Populus trichocarpa scRNA-seq reference (https://doi.org/10.1186/s13059-025-03728-x)
+  - WATs raw count data [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
+  - [Populus tremula x alba HAP2 from Phytozome](https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
+  - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
+  - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
+  - [Arabidopsis thaliana TAIR10 from Phytozome](https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
+  - [Arabidopsis thaliana TAIR10 functional info](https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
+  - [Populus trichocarpa snRNA-seq reference](https://doi.org/10.1186/s13059-025-03728-x)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
   - OrthoFinder configuration file and 1:1 ortholog parser script
