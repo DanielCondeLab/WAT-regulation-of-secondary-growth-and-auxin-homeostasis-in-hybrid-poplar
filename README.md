@@ -197,7 +197,7 @@ Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates inpu
   - `Counts_30samples.csv`
 - Significant genes of DE analysis for each genotype:
   - `Separated_*_FDR_005_Aditive_Model.csv`
-- Phytozome Biomart P.tremula x alba - P.trichocarpa ortholog file:
+- Phytozome Biomart P.tremula x alba - P.trichocarpa ortholog file
 
 **Outputs:**
 - Poplar orthologue dictionary:
