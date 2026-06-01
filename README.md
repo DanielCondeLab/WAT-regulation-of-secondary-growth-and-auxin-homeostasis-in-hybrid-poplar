@@ -15,7 +15,7 @@ The workflow integrates:
 ---
 
 ## Pipeline Scheme 
-<<img width="1104" height="615" alt="image" src="https://github.com/user-attachments/assets/883ece02-3e84-4527-96b4-4b5d32fa6110"/>
+<img width="1496" height="847" alt="image" src="https://github.com/user-attachments/assets/f388dd49-cc56-417c-8397-b4ce58f616c7" />
 
 ---
 ## Software and Required Data
