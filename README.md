@@ -8,7 +8,7 @@ This repository contains the complete computational pipeline to analyze gene exp
 The workflow integrates:
 
 - Bulk RNA-seq and deconvolved celltype differential expression (**edgeR**)
-- Poplar gene mapping (**P. tremula × alba HAP2 v5.1 → P. trichocarpa v4.1** | **P. tremula × alba HAP2 v5.1 → P. Alba (KEGG); DIAMOND**)
+- Poplar gene mapping (**P. tremula × alba HAP2 v5.1 → P. Alba (KEGG); DIAMOND**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
