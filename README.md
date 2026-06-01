@@ -15,7 +15,7 @@ The workflow integrates:
 ---
 
 ## Pipeline Scheme 
-<img width="1920" height="1080" alt="Presentación Universidad Defensa de tesis Moderno Verde y Blanco(1)" src="https://github.com/user-attachments/assets/ac96860c-3e28-4df3-97d3-6f41eb58f7e4" />
+<<img width="1104" height="615" alt="image" src="https://github.com/user-attachments/assets/883ece02-3e84-4527-96b4-4b5d32fa6110"/>
 
 ---
 ## Software and Required Data
