@@ -94,32 +94,30 @@ for up and downregulated respectively
   - `*_Top_20_ORA_topGO_Bulk.svg`
 
 ---
-### 3. Orthologue Mapping Between P.tremula x alba HAP2 - P.alba (KEGG)
+### 3. Best Reciprocal Hit Mapping Between P.tremula x alba HAP2 - P.alba (KEGG)
 
 **Description:**
 
-This scripts identifies the orthologues between P.tremula x alba HAP2 from Phytozome and
+This scripts identifies the Best Reciprocal Hit (BRH) between P.tremula x alba HAP2 from Phytozome and
 P.alba from KEGG
 
 **Scripts:**
-- Activate orthofinder.yaml in the Terminal and copy config.json parameters
-- Create and move to a folder (e.g. Poplar_Proteomes) and add P.tremula x alba and P.alba proteomes
-- Execute: `orthofinder -M msa -f Poplar_Proteomes/`
-- Enter results folder. Extract 1:1 pairs using `Poplars_parser.py`
+- `DIAMOND_RBH.sh`
+- `BRH_Mapper.R`
 
 **Features:**
-- DIAMOND for protein homolgy searches
-- FAMSA for multiple sequence alignment
-- IQ-TREE 3 for phylogenetic inference 
-  - ModelFinder automatic model selection
-  - Ultrafast bootstrap with 1000 replicates  
+- DIAMOND with:
+  - very-sensitive mode
+  - evalue 1e-10 
+  - max-target-seqs 25 
+  - max-hsps 1   
 
 **Inputs:**
 - Poplars proteomes (principal transcripts)
 
 **Outputs:**
-- 1:1 Poplar Orthologues:
-  - `one2one_pairs.tsv`
+- Poplars Best Reciprocal Hits:
+  - `PtXaAlbH_Palba_RBH.csv`
 
 ---
 
@@ -140,11 +138,14 @@ GSEA of DE results from bulk using KEGG database
   - `neg` → downregulated
 
 **Inputs:**
-- Annotation info of P. tremula x alba HAP2 from Phytozome
+- Poplars Best Reciprocal Hits:
+  - `PtXaAlbH_Palba_RBH.csv`
 - DE analysis results for each genotype:
   - `Separated_*_Aditive_Model.csv`
 
 **Outputs:**
+- Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
+ - `KEGG_Mapping_Info.csv`
 - Enriched pathways:
   - `*_All_Enriched_KEGG_Pathways.csv`
 - Dotplots
@@ -168,10 +169,8 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 - Annotation info of P. tremula x alba HAP2 from Phytozome
 - DE analysis results for each genotype:
   - `Separated_*_Aditive_Model.csv`
-- Significant genes of DE analysis for each genotype:
-  - `Separated_*_FDR_005_Aditive_Model.csv`
-- 1:1 Poplar Orthologues:
-  - `one2one_pairs.tsv`
+- Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
+ - `KEGG_Mapping_Info.csv`
 
 **Outputs:**
 - Enriched map of interest (e.g. palz00400):
