@@ -9,8 +9,10 @@
 # File routes MUST be changed in order to use this code.
 # Input files:
 # - Differential expression data for ALL genes from C1 vs WT and C9 vs WT
-# - Phytozome P.tremula x alba HAP2 v5.1 annotations (to obtain KOs)
+# - Best Reciprocal Hit (BRH) of Phytozome P.tremula x alba HAP2 v5.1 - Populus Alba from KEGG
 # Output files:
+# - Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
+#   - KEGG_Mapping_Info.csv
 # - .csv files with all enriched KEGG pathways and their core enrichment genes, separately for positive and negative one-tailed tests
 # - DotPlots of the top 20 enriched KEGG pathways filtered by adjusted p-value , separately for positive and negative one-tailed tests
 # - Network plots (cnetplot) of the top 20 enriched KEGG pathways filtered by adjusted p-value, separately for positive and negative one-tailed tests
@@ -35,15 +37,15 @@ minGSSize = 10  # Minimun number of genes required for the category
 maxGSSize = 500 # Maximum number of genes required for the category
 pvalueCutoff = 0.05 
 
-### Path for file input ###
-ruta_directorio <- "/Users/juanmurillomurillo/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/"
+### Paths for file input ###
+ruta_directorio <- "/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/"
+ruta_destino <- paste0(ruta_directorio,"Results/KEGGs/Nuevo_GSEA_KEGG/")
 
 ### Mutant data ZT8_C1 vs WT & ZT8_C9 vs WT 
-ruta_destino <- paste0(ruta_directorio,"Results/KEGGs/Nuevo_GSEA_KEGG/")
 c1 <- read.csv(paste0(ruta_directorio,"Data/Datos edgeR/Datos_Bulk_edgeR_Zt_como_Covariable/Separated_C1_Aditive_Model.csv"))
 c9 <- read.csv(paste0(ruta_directorio,"Data/Datos edgeR/Datos_Bulk_edgeR_Zt_como_Covariable/Separated_C9_Aditive_Model.csv"))
 
-setwd('/Users/juanmurillomurillo/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/Results/KEGGs/Nuevo_GSEA_KEGG')
+setwd('/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/Results/KEGGs/Nuevo_GSEA_KEGG')
 
 # Rename column "genes" to "Gene"
 # Get object names from the global environment
@@ -60,19 +62,18 @@ for (obj in objs) {
   }
 }
 
-# SELECTION OF KO TERMS TO USE
-# Phytozome file with Populus tremula x alba HAP2 annotations
-ruta <- paste0(ruta_directorio,"Data/Populus Tremula x Alba HAP2/Phytozome/PhytozomeV14/PtremulaxPopulusalbaHAP2/v5.1/annotation/PtremulaxPopulusalbaHAP2_716_v5.1.P14.annotation_info.txt/PtremulaxPopulusalbaHAP2_716_v5.1.P14.annotation_info.txt")
-poplar <- read_tsv(ruta)
+### Load Datasets With BRH of P.tremula x alba HAP2 Phytozome - P.alba KEGG
+poplar_anotation_route <- '/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/Results/Alineamiento_P.Alba_x_P.trem_x_alba/PtXaAlbH_Palba_RBH.csv'
+poplar <- read_csv(poplar_anotation_route)
 poplar <- poplar %>% 
-  dplyr::rename(Gene = locusName)
+  dplyr::select(1,2) %>% 
+  rename(Gene = PtXaAlbH)
 
 # =============================================================================
-# 2. PREPARATION OF edgeR EXPRESSION DATA
+# 2. PREPARATION OF edgeR EXPRESSION DATA AND RANKING STATISTIC
 # =============================================================================
 
 # Generation of the combined dataset (Gene Name, log2FC, p_value)
-# Perhaps they should have kept the same sign for logFC
 c1_c9 <- inner_join(
   c1 %>% dplyr::select(Gene, logFC, PValue),
   c9 %>% dplyr::select(Gene, logFC, PValue),
@@ -100,135 +101,89 @@ c1_c9 <- c1_c9 %>%
   distinct(Gene, .keep_all = TRUE)     # no duplicates per gene
 
 # =============================================================================
-# 3. MAPPING Gene - KOs - PATHWAY FOR THE SELECTED SPECIES
+# 3. MAPPING Palba KEGG Gene - KEGG Gene Number ID  - PATHWAYS MAPPs FOR THE SELECTED SPECIES
 # =============================================================================
 
 # Merge annotations and genes (keep only genes with annotations)
-poplar_c1_c9 <- inner_join(poplar,
-                           c1_c9,
-                           by = "Gene")
+gsea_data  <- inner_join(poplar,
+                         c1_c9,
+                         by = "Gene")
 
-gsea_data <- poplar_c1_c9 %>% 
-  dplyr::select(Gene, 
+# Keep P.alba KEGG Gene Name and Ranking Statistic
+gsea_data <- gsea_data %>% 
+  dplyr::select(Palba, 
                 ranking)
 
-# Obtain K number mappings (KXXXXX -> KO:XXXXX; KEGG ORTHOLOGY)
-Gene_KO <- poplar_c1_c9 %>%
-  select(Gene, KO) %>%
-  mutate(KO = str_split(KO, "[,;\\\\s]+")) %>%
-  unnest(KO) %>%
-  filter(!is.na(KO), KO != "") %>%
-  distinct(Gene, KO)
+# Download KEGG P.alba Pathways Info
+kegg_palz_info <- keggLink("palz","pathway")
+kegg_palz_info_df <- data.frame(
+  Path = names(kegg_palz_info),
+  Gene = unname(kegg_palz_info),
+  stringsAsFactors = FALSE
+)
 
-KOs <- Gene_KO$KO %>% unique()          
+# Eliminate palz prefix
+palz_genes <- unique(sub("^palz:", "", kegg_palz_info_df$Gene))
 
-# 1. Map KOs to species genes (Populus alba "palz" in this case)
-# Helper function to split into batches of 10
-chunk_vec <- function(v, n = 10) {
-  split(v, ceiling(seq_along(v) / n))
-}
+# Map Genes -> KEGG ID Proteina ID Gen 
+palz_gene_paths_and_kegg_ids <- bitr_kegg(palz_genes, fromType="kegg", toType="ncbi-proteinid", organism="palz")
+palz_gene_paths_and_kegg_ids <- palz_gene_paths_and_kegg_ids %>% 
+  rename(Palba = `ncbi-proteinid`)
 
-# 1. Map KOs to species genes (Populus alba = "palz")
-ko_chunks <- chunk_vec(KOs, 10)
+# Join P.alba from KEGG - KEGG ID - Ranking Statistic
+final_gsea_dataset <- inner_join(gsea_data, palz_gene_paths_and_kegg_ids)
 
-ko_to_gene <- lapply(ko_chunks, function(chunk) {
-  Sys.sleep(0.1)  # small pause to avoid 403 error
-  keggLink("palz", paste0("ko:", chunk))
-})
+# Saving Gene Mapping Info
+mapping_all_info <- inner_join(final_gsea_dataset, poplar) %>% 
+  relocate(Gene, Palba, kegg)
 
-palz_genes <- unique(sub("^palz:", "", unname(unlist(ko_to_gene))))
+write_csv(mapping_all_info, paste0(ruta_destino, "KEGG_Mapping_Info.csv"))
 
-# 2. Map Genes -> pathways (remember that a generic mapping exists; organism = "ko")
-palz_gene_paths <- bitr_kegg(palz_genes, fromType="kegg", toType="Path", organism="palz")
-
-# 3. Obtain unique pathway names
-palz_unique_paths <- unique(palz_gene_paths$Path)
-
-# 4. Obtain KO:xxxxx definitions
-# Split into batches because this is the maximum accepted by keggGet
-chunks <- split(palz_unique_paths, ceiling(seq_along(palz_unique_paths)/1))
-
-# Apply the function
-path_annots <- lapply(chunks, function(p) {
-  Sys.sleep(0.1) 
-  keggGet(paste0("path:", p))
-})
-
-path_annots_2 <- unlist(path_annots, recursive = FALSE)
-
-path_df <- do.call(bind_rows, lapply(path_annots_2, function(xx) {
-  data.frame(
-    Path             = if (!is.null(xx$ENTRY)) xx$ENTRY else NA_character_,
-    Path_name        = if (length(xx$NAME)) xx$NAME[1] else NA_character_,
-    Path_description = if (!is.null(xx$DESCRIPTION)) paste(xx$DESCRIPTION, collapse = " ") else NA_character_,
-    stringsAsFactors = FALSE
-  )
-}))
-
-# path_df comes from keggList("pathway"): Path = mapXXXXX, Path_name
-kegg_ko_desc <- merge(palz_gene_paths, path_df,
-                      by = "Path", 
-                      all.x = F)
-
-ko_to_gene_df <- do.call(rbind, lapply(ko_to_gene, function(x) {
-  if (length(x) == 0) return(NULL)
-  data.frame(
-    KO = sub("^ko:", "", names(x)),          # remove 'ko:' prefix
-    palz_gene_full = unname(x),              # returned value: 'palz:XXXXX'
-    kegg = sub("^palz:", "", unname(x)) # without prefix
-  )
-}))
-
-gene_kegg_ko_desc <- merge(ko_to_gene_df, 
-                           kegg_ko_desc,
-                           by = "kegg", 
-                           all.x = F) %>% dplyr::select(-NAME)
 
 # =============================================================================
-# 4. PREPARATION OF GSEA INPUT: GENELIST | TERM2GENE | TERM2NAME
+# 4. PREPARATION OF GSEA INPUT: GENELIST
 # =============================================================================
+# Keep P.alba KEGG Id 
+final_gsea_dataset <- final_gsea_dataset %>% 
+  select(kegg, ranking)
 
 # Generate geneList, term2name and term2gene (as indicated in the clusterProfiler documentation)
 # GeneList
-geneList <- gsea_data$ranking
-names(geneList) <- gsea_data$Gene
+geneList <- final_gsea_dataset$ranking
+names(geneList) <- final_gsea_dataset$kegg
 
 geneList <- geneList[ names(geneList) != "" ]               # remove empty names
 geneList <- geneList[ !duplicated(names(geneList)) ]        # remove duplicates (by name)
 geneList <- sort(geneList, decreasing = TRUE)               # sort (mandatory)
 
-# 1) TERM2GENE: pathway (koXXXXX) ↔ gene (your IDs)
-term2gene <- merge(Gene_KO,gene_kegg_ko_desc, by = "KO") %>% 
-  dplyr::select(Path, Gene)
-
-# 2) TERM2NAME: pathway (koXXXXX) ↔ name
-term2name <- merge(Gene_KO,gene_kegg_ko_desc, by = "KO") %>% 
-  dplyr::select(Path,Path_name)
-
 # =============================================================================
 # 5. APPLY GSEA TO THE UPPER (POS) AND LOWER (NEG) TAIL SEPARATELY
 # =============================================================================
 
-for (scoreType in c("pos", "neg")) {
+for (scoreType in c("neg", "pos")) {
   
-  ego <- GSEA(
-    geneList   = geneList,      
-    TERM2GENE  = term2gene,
-    TERM2NAME  = term2name,
-    minGSSize  = minGSSize, 
+  ego <-  gseKEGG(
+    geneList,
+    organism = "palz",
+    keyType = "kegg",
+    minGSSize = minGSSize,
     maxGSSize = maxGSSize,
-    pvalueCutoff = 1, 
-    verbose = FALSE, 
-    eps = 0,
-    scoreType = scoreType,
-    seed = seed
+    pvalueCutoff = 1,
+    pAdjustMethod = "fdr",
+    verbose = T,
+    use_internal_data = F,
+    seed = seed,
+    scoreType = scoreType
   )
+  
   
   # Save results
   ego_csv <- as.data.frame(ego)
   ego_csv <- ego_csv %>% 
     separate_rows(core_enrichment, sep = "/") %>% 
-    rename(Alba = core_enrichment)
+    rename(kegg = core_enrichment) 
+  
+  ego_csv <- inner_join(ego_csv, mapping_all_info %>% select(-ranking))
   
   write_csv(ego_csv,
             file = paste0(ruta_destino,"/", toupper(scoreType), "_All_Enriched_KEGG_Pathways.csv" ))
@@ -250,6 +205,7 @@ for (scoreType in c("pos", "neg")) {
          plot = q_dot_plot,
          width = 14, 
          height = 14)
+  
   
   # Network Plot P.adjust
   ego_network <- ego
