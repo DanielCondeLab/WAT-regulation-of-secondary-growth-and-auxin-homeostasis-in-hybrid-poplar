@@ -114,6 +114,8 @@ P.alba from KEGG
 
 **Inputs:**
 - Poplars proteomes (principal transcripts)
+  - `PtremulaxPopulusalbaHAP2_716_v5.1.protein_primaryTranscriptOnly.fa`
+  - `GCF_005239225.2_ASM523922v2_protein.faa`
 
 **Outputs:**
 - Poplars Best Reciprocal Hits:
@@ -145,7 +147,7 @@ GSEA of DE results from bulk using KEGG database
 
 **Outputs:**
 - Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
- - `KEGG_Mapping_Info.csv`
+  - `KEGG_Mapping_Info.csv`
 - Enriched pathways:
   - `*_All_Enriched_KEGG_Pathways.csv`
 - Dotplots
@@ -166,15 +168,13 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 - logFC direction is represented (magnitude is not considered)
 
 **Inputs:**
-- Annotation info of P. tremula x alba HAP2 from Phytozome
 - DE analysis results for each genotype:
   - `Separated_*_Aditive_Model.csv`
 - Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
  - `KEGG_Mapping_Info.csv`
 
 **Outputs:**
-- Enriched map of interest (e.g. palz00400):
-  - `Map_00400.csv`
+- Enriched map of interest (e.g. palz00400):`
   - `palz00400.png`
 
 ---
