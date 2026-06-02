@@ -28,7 +28,7 @@ diamond blastp \
   -q PtremulaxPopulusalbaHAP2_716_v5.1.protein_primaryTranscriptOnly.fa \
   -d Palba_KEGG.dmnd \
   -o PtXaAlbH_vs_Palba.tsv \
-  --very-sensitive \
+  --ultra-sensitive \
   --evalue 1e-10 \
   --max-target-seqs 25 \
   --max-hsps 1 \
@@ -38,7 +38,7 @@ diamond blastp \
   -q GCF_005239225.2_ASM523922v2_protein.faa \
   -d PtXaAlbH.dmnd \
   -o Palba_vs_PtXaAlbH.tsv \
-  --very-sensitive \
+  --ultra-sensitive \
   --evalue 1e-10 \
   --max-target-seqs 25 \
   --max-hsps 1 \
