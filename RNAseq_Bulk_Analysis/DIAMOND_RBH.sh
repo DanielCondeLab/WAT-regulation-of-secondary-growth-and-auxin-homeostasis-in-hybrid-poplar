@@ -13,7 +13,7 @@
 #!/bin/bash
 set -euo pipefail
 
-source ~/miniconda3/etc/profile.d/conda.sh
+source /Users/danielconde/miniforge3/etc/profile.d/conda.sh
 conda activate orthofinder
 
 diamond makedb \
@@ -32,7 +32,8 @@ diamond blastp \
   --evalue 1e-10 \
   --max-target-seqs 25 \
   --max-hsps 1 \
-  --outfmt 6 qseqid sseqid pident length evalue bitscore
+  --outfmt 6 qseqid sseqid qlen slen pident length qcovhsp scovhsp evalue bitscore
+
 
 diamond blastp \
   -q GCF_005239225.2_ASM523922v2_protein.faa \
@@ -42,5 +43,6 @@ diamond blastp \
   --evalue 1e-10 \
   --max-target-seqs 25 \
   --max-hsps 1 \
-  --outfmt 6 qseqid sseqid pident length evalue bitscore
+  --outfmt 6 qseqid sseqid qlen slen pident length qcovhsp scovhsp evalue bitscore
+
 
