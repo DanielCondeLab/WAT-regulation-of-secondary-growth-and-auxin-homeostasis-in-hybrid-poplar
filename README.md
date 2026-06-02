@@ -106,10 +106,14 @@ P.alba from KEGG
 
 **Features:**
 - DIAMOND with:
-  - very-sensitive mode
+  - ultra-sensitive mode
   - evalue 1e-10 
   - max-target-seqs 25 
-  - max-hsps 1   
+  - max-hsps 1
+- BRH with:
+  - Percentage of identity >= 50,
+  - Coverage of query >= 70,
+  - Coverage of subject >= 70   
 
 **Inputs:**
 - Poplars proteomes (principal transcripts)
