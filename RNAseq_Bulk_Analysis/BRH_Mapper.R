@@ -1,6 +1,6 @@
 ############################################################
 # CONDA ENVIRONMENT: Pathways_analysis.yaml
-# This script identifies high-confidence Reciprocal Best Hits (RBHs)
+# This script identifies high-confidence Best Reciprocal Hits (BRHs)
 # between the P. tremula × alba HAP2 proteome (Phytozome) and the
 # P. alba proteome used by KEGG.
 #
@@ -14,11 +14,13 @@
 # 7. Export the final 1:1 ortholog mapping table.
 #
 # Input files:
-# - PtXaAlbH_vs_Palba.tsv
-# - Palba_vs_PtXaAlbH.tsv
+# - DIAMONDs two-ways results
+#  - PtXaAlbH_vs_Palba.tsv
+#  - Palba_vs_PtXaAlbH.tsv
 #
 # Output file:
-# - PtXaAlbH_Palba_RBH.csv
+# - Best Reciprocal Hit
+#   - PtXaAlbH_Palba_BRH.csv
 ############################################################
 
 library(tidyverse)
@@ -99,5 +101,5 @@ rbh_final <- rbh_filtrado %>%
 # Export the final RBH table
 write_csv(
   rbh_final,
-  "/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/Colaboracion_Agustina_2026/Results/PtXaAlbH_Palba_RBH.csv"
+  "PtXaAlbH_Palba_BRH.csv"
 )
