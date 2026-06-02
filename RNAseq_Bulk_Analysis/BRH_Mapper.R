@@ -1,39 +1,103 @@
 ############################################################
 # CONDA ENVIRONMENT: Pathways_analysis.yaml
-# This script keeps the best hit from Best Reciprocal Hit (BRH) analysis
-# between P.tremula x alba HAP2 from Phytozome and P.alba from KEGG
+# This script identifies high-confidence Reciprocal Best Hits (RBHs)
+# between the P. tremula × alba HAP2 proteome (Phytozome) and the
+# P. alba proteome used by KEGG.
+#
+# Workflow:
+# 1. Import DIAMOND blastp results from both search directions.
+# 2. Retain the best hit for each query based on bitscore and e-value.
+# 3. Identify reciprocal best-hit pairs.
+# 4. Calculate reciprocal alignment coverage.
+# 5. Filter RBHs using sequence identity and coverage thresholds.
+# 6. Remove isoform suffixes from gene identifiers.
+# 7. Export the final 1:1 ortholog mapping table.
+#
 # Input files:
-# - BRH results (both ways):
-#   - PtXaAlbH_vs_Palba.tsv
-#   - Palba_vs_PtXaAlbH.tsv 
-# Output files:
-# - Consensus 1:1 BRH 
-#   - PtXaAlbH_Palba_RBH.csv
+# - PtXaAlbH_vs_Palba.tsv
+# - Palba_vs_PtXaAlbH.tsv
+#
+# Output file:
+# - PtXaAlbH_Palba_RBH.csv
 ############################################################
 
-# Load BRH Data
-AB <- read_tsv("/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/Colaboracion_Agustina_2026/Data/PtXaAlbH_vs_Palba.tsv", col_names = FALSE)
-BA <- read_tsv("/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/Colaboracion_Agustina_2026/Data/Palba_vs_PtXaAlbH.tsv", col_names = FALSE)
+library(tidyverse)
 
-colnames(AB) <- c("PtXaAlbH", "Palba", "pident_AB", "length_AB", "evalue_AB", "bitscore_AB")
-colnames(BA) <- c("Palba", "PtXaAlbH", "pident_BA", "length_BA", "evalue_BA", "bitscore_BA")
+# Import DIAMOND results for both search directions
+AB <- read_tsv("PtXaAlbH_vs_Palba.tsv", col_names = FALSE)
+BA <- read_tsv("Palba_vs_PtXaAlbH.tsv", col_names = FALSE)
 
-# Arrange BRH Data
+# Assign informative column names
+colnames(AB) <- c(
+  "PtXaAlbH",
+  "Palba",
+  "qlen_AB",
+  "slen_AB",
+  "pident_AB",
+  "length_AB",
+  "qcovhsp_AB",
+  "scovhsp_AB",
+  "evalue_AB",
+  "bitscore_AB"
+)
+
+colnames(BA) <- c(
+  "Palba",
+  "PtXaAlbH",
+  "qlen_BA",
+  "slen_BA",
+  "pident_BA",
+  "length_BA",
+  "qcovhsp_BA",
+  "scovhsp_BA",
+  "evalue_BA",
+  "bitscore_BA"
+)
+
+# Retain the best hit for each P. tremula × alba query sequence.
+# Hits are ranked primarily by bitscore and secondarily by e-value.
 best_AB <- AB %>%
   arrange(PtXaAlbH, desc(bitscore_AB), evalue_AB) %>%
   distinct(PtXaAlbH, .keep_all = TRUE)
 
+# Retain the best hit for each P. alba query sequence.
 best_BA <- BA %>%
   arrange(Palba, desc(bitscore_BA), evalue_BA) %>%
   distinct(Palba, .keep_all = TRUE)
 
-# Consensus
+# Identify Reciprocal Best Hits (RBHs) present in both searches
 rbh <- inner_join(best_AB, best_BA, by = c("PtXaAlbH", "Palba"))
 
+# Compute reciprocal coverage metrics.
+# The minimum coverage observed in each direction is used to obtain
+# a conservative estimate of alignment coverage.
 rbh <- rbh %>%
+  mutate(
+    coverage_query = pmin(qcovhsp_AB, scovhsp_BA),
+    coverage_subject = pmin(scovhsp_AB, qcovhsp_BA)
+  )
+
+# Retain only high-confidence ortholog candidates.
+# Thresholds:
+# - Amino acid identity ≥ 50%
+# - Reciprocal query coverage ≥ 70%
+# - Reciprocal subject coverage ≥ 70%
+rbh_filtrado <- rbh %>%
+  filter(
+    pident_AB >= 50,
+    coverage_query >= 70,
+    coverage_subject >= 70
+  )
+
+# Remove transcript/isoform suffixes to obtain gene-level identifiers
+rbh_final <- rbh_filtrado %>%
   mutate(
     PtXaAlbH = sub("\\.[0-9]+\\.p$", "", PtXaAlbH),
     Palba = sub("\\.[0-9]+$", "", Palba)
+  )
+
+# Export the final RBH table
+write_csv(
+  rbh_final,
+  "/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/Colaboracion_Agustina_2026/Results/PtXaAlbH_Palba_RBH.csv"
 )
-# Save
-write_csv(rbh, "/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/Colaboracion_Agustina_2026/Results/PtXaAlbH_Palba_RBH.csv")
