@@ -168,7 +168,7 @@ for (scoreType in c("neg", "pos")) {
     minGSSize = minGSSize,
     maxGSSize = maxGSSize,
     pvalueCutoff = 1,
-    pAdjustMethod = "fdr",
+    pAdjustMethod = "BH",
     verbose = T,
     use_internal_data = F,
     seed = seed,
