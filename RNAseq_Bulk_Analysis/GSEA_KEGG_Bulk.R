@@ -35,7 +35,6 @@ set.seed(15)
 seed = 15
 minGSSize = 10  # Minimun number of genes required for the category
 maxGSSize = 500 # Maximum number of genes required for the category
-pvalueCutoff = 0.05 
 
 ### Paths for file input ###
 ruta_directorio <- "/Users/danielconde/Library/CloudStorage/GoogleDrive-lab171@intranet.cbgp.upm.es/Mi unidad/Drive_Juan/WATs/Pathways_Analysis_Mutantes_ZT8_ZT23/"
