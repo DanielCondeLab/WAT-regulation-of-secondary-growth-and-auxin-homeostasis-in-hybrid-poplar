@@ -17,7 +17,6 @@
 # 0. IMPORT LIBRARIES
 # =============================================================================
 library(tidyverse)
-library(edgeR)
 
 # =============================================================================
 # 1. LOAD RAW COUNTS AND POPLAR DICTIONARY
@@ -83,7 +82,6 @@ many_to_many_mapping <- Data %>%
   group_by(Trichocarpa) %>% 
   slice(1) %>%        # keep the first ortholog for each Alba
   ungroup() %>% 
-  dplyr::select(-"Relationship") 
 
 # N:1 ortholog dictionary (merge and keep only those that are DEGs)
 many_to_one_mapping <- Data %>% 
