@@ -63,12 +63,17 @@ ptricho_arab <- phytozome_ptricho_arab %>%
 
 dicc_ptricho_arab <- setNames(ptricho_arab$`Best-hit-arabi-name`, ptricho_arab$locusName)
 
-# Database: P.tremula gene, Arabidopsis ortholog and GO terms
-database_arab_static_go <- read.csv('/Users/danielconde/Desktop/WATs/BayesnPrism/Results/ORA_topGo_Celltypes/Data_Phytozome_P.tricho_&_Arab/GOs_Arab/2026_Poplar_Arab_GOs_TAIR.csv')
+# Database Arabidopsis GO slim
+database_arab_static_go  <- read_tsv('/Users/danielconde/Desktop/WATs/BayesnPrism/Results/ORA_topGo_Celltypes/Data_Phytozome_P.tricho_&_Arab/GOs_Arab/ATH_GO_GOSLIM 2.txt',
+                                     skip = 4, col_names = F) 
+
+database_arab_static_go  <- database_arab_static_go %>% 
+  dplyr::select(X1, X6) %>% 
+  unique()
+
 database_arab_static_go <- database_arab_static_go %>% 
-  dplyr::select(-locusName) %>% 
-  dplyr::rename(Arabidopsis = Arab,
-                goid = Go_Arab_TAIR)
+  dplyr::rename(Arabidopsis = 1,
+                goid = 2)
 
 # Arabidopsis gene functional descriptions (TAIR)
 arab_gene_description_tair <- read_tsv("/Users/danielconde/Desktop/WATs/BayesnPrism/Data/Mapeo_Phytozome_P.tremHAP2_P.tricho/TAIR10_functional_descriptions.csv")
