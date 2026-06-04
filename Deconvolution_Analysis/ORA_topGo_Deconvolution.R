@@ -7,7 +7,7 @@
 # - UPregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
 # - DOWNregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
 # - Phytozome P.trichocarpa v14 annotations (to obtain Arabidopsis orthologs)
-# - Phytozome Populus tremula x alba HAP2 Database: P. tremula x alba HAP2 gene | Arabidopsis GO terms
+# - Arabidopsis GO terms from TAIR10
 # - Arabidopsis gene functional descriptions from TAIR database
 # Output files:
 # - .csv and .xlsx files with enriched processes (GOs). Excel files are used for combined celltype DotPlot
@@ -63,7 +63,7 @@ ptricho_arab <- phytozome_ptricho_arab %>%
 
 dicc_ptricho_arab <- setNames(ptricho_arab$`Best-hit-arabi-name`, ptricho_arab$locusName)
 
-# Database Arabidopsis GO slim
+# Database Arabidopsis GO Slim from TAIR
 database_arab_static_go  <- read_tsv('/Users/danielconde/Desktop/WATs/BayesnPrism/Results/ORA_topGo_Celltypes/Data_Phytozome_P.tricho_&_Arab/GOs_Arab/ATH_GO_GOSLIM 2.txt',
                                      skip = 4, col_names = F) 
 
