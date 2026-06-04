@@ -1,5 +1,8 @@
 # WAT Regulation of Secondary Growth and Auxin Homeostasis in Hybrid Poplar 
 ---
+Añadir todo lo relacionado con el ORA de la deconvolucion de Trichocarpa
+como el anotation info y explicar como se hace en su respectiva seccion
+
 poner paper (doi) 
 ## Overview
 
