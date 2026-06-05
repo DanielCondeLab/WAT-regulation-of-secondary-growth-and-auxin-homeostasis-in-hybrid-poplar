@@ -18,8 +18,6 @@
 # 0. IMPORT LIBRARIES
 # =============================================================================
 
-library(BayesPrism)
-library(Seurat)
 library(tidyverse)
 library(edgeR)
 
