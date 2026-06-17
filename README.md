@@ -77,7 +77,7 @@ This scripts perform differential expression analysis for:
 **Description:**
 
 ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT 
-for up and downregulated respectively
+for up and downregulated separately
 
 **Features:**
 - Biological Process ontology
@@ -87,7 +87,9 @@ for up and downregulated respectively
 **Inputs:**
 - Filtered DEGs from Bulk (FDR < 0.05):
   - `Separated_*_FDR_005_Aditive_Model.csv`
-- Poplar–Arabidopsis GO annotation database (Created by intersecting Phytozome P.tremula x alba HAP2 and A.thaliana) 
+- Poplar–Arabidopsis GO annotation database. Created by intersecting:
+  - `PtremulaxPopulusalbaHAP2_716_v5.1.P14.annotation_info.txt`
+  - `ATH_GO_GOSLIM.txt`
 - TAIR functional descriptions:
   - `TAIR10_functional_descriptions.csv`
 
@@ -312,7 +314,7 @@ using an One vs Rest aproach:
 **Description:**
 
 ORA GO enrichment of shared significant DEGs from C1 vs WT and C9 vs WT per celltype 
-for up and downregulated respectively
+for up and downregulated separately
 
 **Features:**
 - Biological Process ontology
@@ -322,13 +324,13 @@ for up and downregulated respectively
 **Inputs:**
 - Filtered DEGs from Bulk (FDR < 0.05):
   - `Separated_*_FDR_005_Aditive_Model.csv`
-- Upregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
+- Upregulated DEGs (FDR < 0.05; logFC > 0) per celltype intersected with their celltype markers
   - `UP_*celltype*_DEGs_C1_C9_edgeR.csv`
-- Downregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
+- Downregulated DEGs (FDR < 0.05; logFC < 0) per celltype intersected with their celltype markers
   - `DWN_*celltype*_DEGs_C1_C9_edgeR.csv`
 - Populus trichocarpa annotation info
   - `Ptrichocarpa_533_v4.1.P14.annotation_info.txt` 
-- Arabidopsis GO terms from TAIR10
+- Arabidopsis GO terms from TAIR
   - `ATH_GO_GOSLIM.txt` 
 - TAIR functional descriptions:
   - `TAIR10_functional_descriptions.csv`
