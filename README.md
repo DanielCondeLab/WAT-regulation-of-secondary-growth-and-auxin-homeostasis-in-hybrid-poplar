@@ -24,15 +24,15 @@ The workflow integrates:
 ---
 ## Software and Required Data
 - Data
-  - WATs genes raw counts [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
+  - WATs genes raw counts [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)
+  - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
   - [Populus tremula x alba HAP2 from Phytozome](https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
   - [Populus trichocarpa from Phytozome](https://phytozome-next.jgi.doe.gov/info/Ptrichocarpa_v4_1)
-  - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
-  - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
-  - [Arabidopsis thaliana TAIR10 from Phytozome](https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
-  - [Arabidopsis thaliana GOs from TAIR10 info](https://www.arabidopsis.org/api/download-files/download?filePath=GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO_GOSLIM.txt.gz)
-  - [Arabidopsis thaliana TAIR10 functional info](https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
   - [Populus trichocarpa snRNA-seq reference](https://doi.org/10.1186/s13059-025-03728-x)
+  - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
+  - [Arabidopsis thaliana TAIR10 from Phytozome](https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
+  - [Arabidopsis thaliana GOs from TAIR info](https://www.arabidopsis.org/api/download-files/download?filePath=GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO_GOSLIM.txt.gz)
+  - [Arabidopsis thaliana TAIR functional info](https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
   - R (v4.4.2) **Note**: BayesPrism R package must be installed via R
