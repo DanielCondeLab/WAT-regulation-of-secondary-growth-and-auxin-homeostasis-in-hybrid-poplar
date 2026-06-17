@@ -35,7 +35,8 @@ The workflow integrates:
   - [Arabidopsis thaliana TAIR functional info](https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
-  - R (v4.4.2) **Note**: BayesPrism R package must be installed via R
+  - R (v4.4.2)
+  **Note**: BayesPrism R package must be installed via R
 ---
 
 ## Pipeline Worflow
