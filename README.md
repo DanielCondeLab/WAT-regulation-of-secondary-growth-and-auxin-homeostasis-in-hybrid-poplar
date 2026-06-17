@@ -13,7 +13,7 @@ The workflow integrates:
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
-**Note**: OrthoFinder usage is not covered in this repository, but the configuration file used in the analysis is included.
+**Note**: OrthoFinder usage is not covered in this repository, but the configuration file used in the analysis is provided.
 
 ---
 
