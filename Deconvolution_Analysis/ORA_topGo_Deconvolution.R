@@ -64,7 +64,7 @@ ptricho_arab <- phytozome_ptricho_arab %>%
 dicc_ptricho_arab <- setNames(ptricho_arab$`Best-hit-arabi-name`, ptricho_arab$locusName)
 
 # Database Arabidopsis GO Slim from TAIR
-database_arab_static_go  <- read_tsv('/Users/danielconde/Desktop/WATs/BayesnPrism/Results/ORA_topGo_Celltypes/Data_Phytozome_P.tricho_&_Arab/GOs_Arab/ATH_GO_GOSLIM 2.txt',
+database_arab_static_go  <- read_tsv('/Users/danielconde/Desktop/WATs/BayesnPrism/Results/ORA_topGo_Celltypes/Data_Phytozome_P.tricho_&_Arab/GOs_Arab/ATH_GO_GOSLIM.txt',
                                      skip = 4, col_names = F) 
 
 database_arab_static_go  <- database_arab_static_go %>% 
