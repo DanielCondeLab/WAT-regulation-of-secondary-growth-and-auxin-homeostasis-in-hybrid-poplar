@@ -3,7 +3,6 @@
 Añadir todo lo relacionado con el ORA de la deconvolucion de Trichocarpa
 como el anotation info y explicar como se hace en su respectiva seccion.
 
-Quitar Pathview
 
 poner paper (doi) 
 ## Overview
@@ -13,7 +12,7 @@ This repository contains the complete computational pipeline to analyze gene exp
 The workflow integrates:
 
 - Bulk RNA-seq and deconvolved celltype differential expression (**edgeR**)
-- Poplar best reciptocal hit gene mapping (**DIAMOND**)
+- Poplar best reciprocal hit gene mapping (**DIAMOND**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
 
@@ -27,6 +26,7 @@ The workflow integrates:
 - Data
   - WATs GEO genes raw counts [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
   - [Populus tremula x alba HAP2 from Phytozome](https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
+  - [Populus trichocarpa from Phytozome](https://phytozome-next.jgi.doe.gov/info/Ptrichocarpa_v4_1)
   - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
   - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
   - [Arabidopsis thaliana TAIR10 from Phytozome](https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
