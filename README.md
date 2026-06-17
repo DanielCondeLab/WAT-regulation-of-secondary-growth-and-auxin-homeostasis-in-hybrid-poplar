@@ -1,8 +1,5 @@
 # WAT Regulation of Secondary Growth and Auxin Homeostasis in Hybrid Poplar 
 ---
-Añadir todo lo relacionado con el ORA de la deconvolucion de Trichocarpa
-como el anotation info y explicar como se hace en su respectiva seccion.
-
 
 poner paper (doi) 
 ## Overview
@@ -15,6 +12,8 @@ The workflow integrates:
 - Poplar best reciprocal hit gene mapping (**DIAMOND**)
 - Cell-type deconvolution (**BayesPrism**)
 - Functional enrichment (**ORA GO (topGO); GSEA KEGG (clusterProfiler)**)
+
+**Note**: OrthoFinder usage is not covered in this repository, but the configuration file used in the analysis is included.
 
 ---
 
