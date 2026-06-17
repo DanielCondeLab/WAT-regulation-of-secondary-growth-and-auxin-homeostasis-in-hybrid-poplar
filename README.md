@@ -235,7 +235,7 @@ Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 **Inputs:**
 - P.trichocarpa scRNA-seq Seurat object (DOI: 10.1186/s13059-025-03728-x):
   - `Integrated_dataSnRNAseqSTEMFinalclustering.rds`
-- Seurat marker file (optional, if already computed for faster performance):
+- Seurat marker file (optional if already computed for faster performance):
   - `Filtered_Ptricho_FindAllMarkers_Seurat.csv`
 - RNA-Seq input for Deconvolution:
   - `Tricho_WT_Mutant_BULK_Counts.tsv`
@@ -320,10 +320,18 @@ for up and downregulated respectively
 - BH p-value correction
 
 **Inputs:**
-- Celltype filtered DEGs for each genotype (FDR < 0.05) :
-  - `*_Separated_*_FDR_005_Aditive_Model.csv`
-- Marker genes fo all the celltypes:
-  - `Resumed_General_Markers_FDR_005.csv`
+- Filtered DEGs from Bulk (FDR < 0.05):
+  - `Separated_*_FDR_005_Aditive_Model.csv`
+- Upregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
+  - `UP_*celltype*_DEGs_C1_C9_edgeR.csv`
+- Downregulated DEGs (FDR < 0.05) per celltype intersected with their celltype markers
+  - `DWN_*celltype*_DEGs_C1_C9_edgeR.csv`
+- Populus trichocarpa annotation info
+  - `Ptrichocarpa_533_v4.1.P14.annotation_info.txt` 
+- Arabidopsis GO terms from TAIR10
+  - `ATH_GO_GOSLIM.txt` 
+- TAIR functional descriptions:
+  - `TAIR10_functional_descriptions.csv`
 
 **Outputs:**
 - Enriched GO terms (`.csv` and `.xlsx`)
