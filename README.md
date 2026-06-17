@@ -30,6 +30,7 @@ The workflow integrates:
   - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
   - [Biomart Phytozome Tool](https://phytozome-next.jgi.doe.gov/biomart/martview/a5f9a612e8d5ed5ca96db2f9713cb466)
   - [Arabidopsis thaliana TAIR10 from Phytozome](https://phytozome-next.jgi.doe.gov/info/Athaliana_TAIR10)
+  - [Arabidopsis thaliana GOs from TAIR10 info](https://www.arabidopsis.org/api/download-files/download?filePath=GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO_GOSLIM.txt.gz)
   - [Arabidopsis thaliana TAIR10 functional info](https://www.arabidopsis.org/api/download-files/download?filePath=Genes/TAIR10_genome_release/TAIR10_functional_descriptions)
   - [Populus trichocarpa snRNA-seq reference](https://doi.org/10.1186/s13059-025-03728-x)
 - Software
