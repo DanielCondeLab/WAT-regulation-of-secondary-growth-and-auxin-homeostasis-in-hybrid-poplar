@@ -185,7 +185,7 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 - DE analysis results for each genotype:
   - `Separated_*_Aditive_Model.csv`
 - Populus Dicctionary Mapping (P.tremula x alba HAP2 - P.Alba from KEGG - KEGG ID)
- - `KEGG_Mapping_Info.csv`
+   - `KEGG_Mapping_Info.csv`
 
 **Outputs:**
 - Enriched map of interest (e.g. palz00400):`
