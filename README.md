@@ -136,7 +136,7 @@ P.alba from KEGG
 
 ---
 
-### 4. GSEA of Bulk DE Analysis (KEGG Pathways)
+### 4. GSEA KEGG of Bulk 
 
 **Scripts:**
 - `GSEA_KEGG_Bulk.R`
@@ -332,7 +332,7 @@ for up and downregulated separately
   - `UP_*celltype*_DEGs_C1_C9_edgeR.csv`
 - Downregulated DEGs (FDR < 0.05; logFC < 0) per celltype intersected with their celltype markers
   - `DWN_*celltype*_DEGs_C1_C9_edgeR.csv`
-- Populus trichocarpa annotation info
+- Populus trichocarpa annotation info from Phytozome
   - `Ptrichocarpa_533_v4.1.P14.annotation_info.txt` 
 - Arabidopsis GO terms from TAIR
   - `ATH_GO_GOSLIM.txt` 
