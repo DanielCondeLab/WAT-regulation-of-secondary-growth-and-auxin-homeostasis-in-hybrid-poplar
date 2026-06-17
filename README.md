@@ -36,6 +36,7 @@ The workflow integrates:
 - Software
   - Conda enviroment files are provided for each script of the pipeline (.yaml)
   - R (v4.4.2)
+    
   **Note**: BayesPrism R package must be installed via R
 ---
 
