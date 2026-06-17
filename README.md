@@ -90,7 +90,7 @@ for up and downregulated separately
 - Poplar–Arabidopsis GO annotation database. Created by intersecting:
   - `PtremulaxPopulusalbaHAP2_716_v5.1.P14.annotation_info.txt`
   - `ATH_GO_GOSLIM.txt`
-- TAIR functional descriptions:
+- TAIR gene functional descriptions:
   - `TAIR10_functional_descriptions.csv`
 
 **Outputs:**
@@ -161,7 +161,7 @@ GSEA of DE results from bulk using KEGG database
 - Enriched pathways:
   - `*_All_Enriched_KEGG_Pathways.csv`
 - Dotplots
-- Network plots (cnetplot)
+- Network plots
 
 ---
 ### 5. Visualization of KEGG Pathways from GSEA with Pathview
@@ -195,7 +195,7 @@ Visualization of enriched KEGG routes from GSEA with Pathview software
 
 **Description:**
 
-Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates input file for deconvolution
+Maps genes between P. tremula × alba HAP2 → P. trichocarpa and generates input file for deconvolution
 
 **Features:**
 - 1:1 → keep all
@@ -229,7 +229,8 @@ Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates inpu
 Deconvolves bulk RNA-seq data into **cell-type-specific expression**
 
 **Features:**
-- Although BayesPrism’s marker calculation is faster, it identifies far fewer genes than Seurat. For this reason, we recommend using Seurat’s FindAllMarkers.
+- Although BayesPrism’s marker calculation is faster, it identifies far fewer genes than Seurat.
+  For this reason, we recommend using Seurat’s FindAllMarkers.
 - Sieve Elements (SE) celltype from P.trichocarpa scRNA-seq reference generates aberrant data.
   It is integrated into the Unknown (???) celltype. 
 
@@ -332,7 +333,7 @@ for up and downregulated separately
   - `Ptrichocarpa_533_v4.1.P14.annotation_info.txt` 
 - Arabidopsis GO terms from TAIR
   - `ATH_GO_GOSLIM.txt` 
-- TAIR functional descriptions:
+- TAIR gene functional descriptions:
   - `TAIR10_functional_descriptions.csv`
 
 **Outputs:**
