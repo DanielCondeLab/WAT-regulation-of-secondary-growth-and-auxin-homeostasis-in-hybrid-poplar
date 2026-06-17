@@ -24,7 +24,7 @@ The workflow integrates:
 ---
 ## Software and Required Data
 - Data
-  - WATs GEO genes raw counts [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
+  - WATs genes raw counts [GSE328658](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE328658)  
   - [Populus tremula x alba HAP2 from Phytozome](https://phytozome-next.jgi.doe.gov/info/PtremulaxPopulusalbaHAP2_v5_1)
   - [Populus trichocarpa from Phytozome](https://phytozome-next.jgi.doe.gov/info/Ptrichocarpa_v4_1)
   - [Populus alba from KEGG](https://www.kegg.jp/kegg-bin/show_organism?org=palz)
@@ -198,8 +198,9 @@ Maps genes between P. tremula × alba HAP2 → P. trichocarpa and Generates inpu
 **Features:**
 - 1:1 → keep all
 - 1:N → keep all
-- N:1 → prioritize DEGs + highest WT expression
 - N:N → select first alphabetically
+- N:1 → retain bulk DEGs, keep same-chromosome pairs, and select the highest-expressed WT gene
+
 
 **Inputs:**
 - Bulk raw count matrix:
