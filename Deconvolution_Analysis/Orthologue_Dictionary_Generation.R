@@ -81,7 +81,7 @@ many_to_many_mapping <- Data %>%
   arrange(Alba, Trichocarpa) %>% 
   group_by(Trichocarpa) %>% 
   slice(1) %>%        # keep the first ortholog for each Alba
-  ungroup() %>% 
+  ungroup()  
 
 # N:1 ortholog dictionary (merge and keep only those that are DEGs)
 many_to_one_mapping <- Data %>% 
