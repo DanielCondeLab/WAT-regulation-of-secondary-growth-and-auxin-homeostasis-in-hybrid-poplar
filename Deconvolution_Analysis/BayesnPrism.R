@@ -33,7 +33,7 @@ seurat_object <- readRDS("/Users/danielconde/Desktop/WATs/BayesnPrism/Data/Integ
 ruta_resultado_marcadores_tejido_seurat <- "/Users/danielconde/Desktop/WATs/BayesnPrism/Results/FindAllMarkers_Seurat/Filtered_Ptricho_FindAllMarkers_Seurat.csv"
 Resultado_FindAllMarkers <- read_csv(ruta_resultado_marcadores_tejido_seurat)
 
-### Mixture File (Bulk Data / Obtained from 1_Mixture_File_Generation.R)
+### Mixture File (Bulk Data / Obtained from Orthologue_Dictionary_Generation.R)
 bulk_data <- read_tsv("/Users/danielconde/Desktop/WATs/BayesnPrism/Data/Mixture_Files/Tricho_WT_Mutant_BULK_Counts.tsv")
 
 # =============================================================================
