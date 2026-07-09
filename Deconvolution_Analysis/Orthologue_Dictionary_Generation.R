@@ -83,13 +83,14 @@ many_to_many_mapping <- Data %>%
   slice(1) %>%        # keep the first ortholog for each Alba
   ungroup()  
 
-# 4. N:1 ortholog dictionary (merge and keep only those that are DEGs)
+# 4. N:1 ortholog dictionary 
 many_to_one_mapping <- Data %>% 
   dplyr::select(`Gene Name`, `Ortholog Gene Name`, Relationship) %>% 
   rename(Alba = `Gene Name`, Trichocarpa = `Ortholog Gene Name`) %>% 
   filter(Relationship == "many-to-one") %>% 
   unique()
 
+# Merge and keep only those that are DEGs
 c1_c9 <- inner_join(c1, c9, by = "Gene") %>% 
   rename("Alba" = Gene)
 
