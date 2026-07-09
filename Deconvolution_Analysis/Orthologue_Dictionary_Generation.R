@@ -102,8 +102,8 @@ c1_c9_many_to_one_mapping <- inner_join(many_to_one_mapping, c1_c9, by = "Alba")
 # Remove rows where chromosomes do not match
 c1_c9_many_to_one_mapping <- c1_c9_many_to_one_mapping %>%
   mutate(
-    num_Alba   = str_extract(Alba, "(?<=\\\\.)\\\\d+(?=G)"),
-    num_Tricho = str_extract(Trichocarpa, "(?<=\\\\.)\\\\d+(?=G)")
+    num_Alba   = str_extract(Alba, "(?<=\\.)\\d+(?=G)"),
+    num_Tricho = str_extract(Trichocarpa, "(?<=\\.)\\d+(?=G)")
   ) %>%
   # convert to integer to ignore leading zeros
   mutate(
