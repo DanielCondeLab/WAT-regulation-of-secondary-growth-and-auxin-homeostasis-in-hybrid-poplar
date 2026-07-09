@@ -105,7 +105,7 @@ write_csv(final_dicc_poplar,
 celltypes <- tools::file_path_sans_ext(basename(data_files))
 
 # =============================================================================
-# 3. PREPARE OBJECTS FOR TOPGO ENRICHMENT 
+# 3. PREPARE OBJECTS AND PERFORM TOPGO ENRICHMENT 
 # =============================================================================
 
 for (ct in celltypes) {
