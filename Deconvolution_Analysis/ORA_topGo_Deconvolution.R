@@ -163,6 +163,11 @@ for (ct in celltypes) {
   # FDR adjustment and filtering
   GOresult$adj_p_value <- p.adjust(GOresult$weight01Fisher, method = "BH")
   GOresult_filtered <- GOresult[GOresult$adj_p_value < 0.05, ]
+
+  # GeneRatio calculation (Significant / Total Annotated in the Gene Universe)
+  GOresult_filtered$GeneRatio <- as.numeric(GOresult_filtered$Significant) / as.numeric(GOresult_filtered$Annotated)
+
+  # Save Results in csv and xlsx
   Save_GOresult_filtered <- as.data.frame(GOresult_filtered) %>% unique()
   
   write.csv(Save_GOresult_filtered,
@@ -171,8 +176,6 @@ for (ct in celltypes) {
   write.xlsx(Save_GOresult_filtered,
              file = paste0(plots_output_path,"Excels/",ct,"_Enriched_topGo.xlsx"))
   
-  # GeneRatio calculation (Significant / Total Annotated in the Gene Universe)
-  GOresult_filtered$GeneRatio <- as.numeric(GOresult_filtered$Significant) / as.numeric(GOresult_filtered$Annotated)
   
   # Function to obtain GO - GENE pairs
   significantGO <- function(result_test, alpha = 0.05) {
