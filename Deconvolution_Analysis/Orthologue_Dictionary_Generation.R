@@ -87,7 +87,8 @@ many_to_many_mapping <- Data %>%
 many_to_one_mapping <- Data %>% 
   dplyr::select(`Gene Name`, `Ortholog Gene Name`, Relationship) %>% 
   rename(Alba = `Gene Name`, Trichocarpa = `Ortholog Gene Name`) %>% 
-  filter(Relationship == "many-to-one") 
+  filter(Relationship == "many-to-one") %>% 
+  unique()
 
 c1_c9 <- inner_join(c1, c9, by = "Gene") %>% 
   rename("Alba" = Gene)
