@@ -126,7 +126,7 @@ many_to_one_c1_c9_count <- inner_join(WT_Counts, c1_c9_many_to_one_mapping, by =
   group_by(Trichocarpa) %>% 
   slice_max(TOTAL, n = 1, with_ties = FALSE) %>% 
   ungroup() %>% 
-  dplyr::select(-TOTAL)
+  dplyr::select(-TOTAL) %>% 
   dplyr::rename(Alba = Gene_Symbol)
 
 # Merge the 4 dictionary datasets and create final dictionary
