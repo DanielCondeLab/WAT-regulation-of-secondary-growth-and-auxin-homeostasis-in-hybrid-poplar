@@ -73,7 +73,7 @@ one_to_many_mapping <- Data %>%
   filter(Relationship == "one-to-many") %>% 
   distinct()
 
-# N:N ortholog dictionary (sort alphabetically and keep the first occurrence)
+# 3. N:N ortholog dictionary (sort alphabetically and keep the first occurrence)
 many_to_many_mapping <- Data %>% 
   select(`Gene Name`, `Ortholog Gene Name`, Relationship) %>% 
   rename(Alba = `Gene Name`, Trichocarpa = `Ortholog Gene Name`) %>% 
@@ -83,7 +83,7 @@ many_to_many_mapping <- Data %>%
   slice(1) %>%        # keep the first ortholog for each Alba
   ungroup()  
 
-# N:1 ortholog dictionary (merge and keep only those that are DEGs)
+# 4. N:1 ortholog dictionary (merge and keep only those that are DEGs)
 many_to_one_mapping <- Data %>% 
   dplyr::select(`Gene Name`, `Ortholog Gene Name`, Relationship) %>% 
   rename(Alba = `Gene Name`, Trichocarpa = `Ortholog Gene Name`) %>% 
