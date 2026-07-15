@@ -98,8 +98,7 @@ cell_type_rename_map <- c(
   "25" = "MX"
 )
 
-# Add "cell_type" and "cell_state" metadata according to the defined mapping
-seurat_object@meta.data$cell_type <- cell_type_rename_map[as.character(seurat_object$seurat_clusters)]
+# Add "cell_type" and/or "cell_state" metadata according to the defined mapping
 seurat_object@meta.data$cell_type <- cell_type_rename_map[as.character(seurat_object$seurat_clusters)]
 
 # Set 'celltype' as the primary identity
