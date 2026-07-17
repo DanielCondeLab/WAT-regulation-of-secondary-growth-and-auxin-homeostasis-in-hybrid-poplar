@@ -1,7 +1,7 @@
 # WAT Regulation of Secondary Growth and Auxin Homeostasis in Hybrid Poplar 
 ---
 
-poner paper (doi) 
+DOI:
 ## Overview
 
 This repository contains the complete computational pipeline to analyze gene expression and functional enrichment in **Populus tremula × alba HAP2** 
