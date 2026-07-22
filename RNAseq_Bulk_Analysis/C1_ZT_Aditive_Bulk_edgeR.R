@@ -41,7 +41,7 @@ treatment <- factor(substring(colnames(rawdata),1,2))
 treatment <- relevel(treatment, ref = "WT") # Set WT as reference to drop it later
 
 # Extract ZT + numbers (e.g. ZT8, ZT23)
-zt <- factor(sub(".*(ZT[0-9]+).*", "\\\\1", colnames(rawdata)))
+zt <- factor(sub(".*(ZT[0-9]+).*", "\\1", colnames(rawdata)))
 
 # =============================================================================
 # MAKE DGEList OBJECT
