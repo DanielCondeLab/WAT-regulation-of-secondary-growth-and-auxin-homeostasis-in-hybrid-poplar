@@ -119,11 +119,10 @@ plotQLDisp(fit_C1)
 # DIFFERENTIAL EXPRESSION
 # =============================================================================
 
-##################### ZT AND C1 #####################
+##################### C1 VS WT (Adjusted by ZT) #####################
 zt_23_c1_qlf <- glmQLFTest(fit_C1, coef = "treatment_C1C1")
 topTags(zt_23_c1_qlf)
 
-# Store genes affected by ZT (2 files: unfiltered and FDR-filtered)
 zt_genes_names <- zt_23_c1_qlf$genes
 zt_genes_data  <- zt_23_c1_qlf$table
 
